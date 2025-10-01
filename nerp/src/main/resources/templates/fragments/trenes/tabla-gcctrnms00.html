@@ -1,0 +1,46 @@
+<div th:fragment="tablaGcctrnms00">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Train number</th>
+                <th>Train Process</th>
+                <th>Train move st</th>
+                <th>Current Station</th>
+                <th>Next station</th>
+                <th>Current Lock User</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r, iterStat : ${gcctrnms00}">
+                <td>
+                    <input type="text" id="miInput" th:name="'items[' + ${iterStat.index} + '].ftrntrnñ'"
+                        th:value="${r.ftrntrnñ}" th:attr="data-original=${r.ftrntrnñ}" data-tabla="GCCTRNMS00"
+                        maxlength="15" />
+                </td>
+                <td>
+                    <input type="text" id="miInput" th:name="'items[' + ${iterStat.index} + '].ftrntps'"
+                        th:value="${r.ftrntps}" th:attr="data-original=${r.ftrntps}" data-tabla="GCCTRNMS00"
+                        maxlength="3" style="color:black !important; background-color: #a2f5b5 !important;"/>
+                </td>
+                <td>
+                    <input type="text" id="miInput" th:name="'items[' + ${iterStat.index} + '].ftrntms'"
+                        th:value="${r.ftrntms}" th:attr="data-original=${r.ftrntms}" data-tabla="GCCTRNMS00"
+                        maxlength="3" style="color:black !important; background-color: #a2f5b5 !important;"/>
+                </td>
+                <td>
+                    <input type="text" id="miInput" th:name="'items[' + ${iterStat.index} + '].ftrncstn'"
+                        th:value="${r.ftrncstn}" th:attr="data-original=${r.ftrncstn}" data-tabla="GCCTRNMS00"
+                        maxlength="3" style="color:black !important; background-color: #a2f5b5 !important;"/>
+                </td>
+                <td>
+                    <input type="text" id="miInput" th:name="'items[' + ${iterStat.index} + '].ftrnnstn'"
+                        th:value="${r.ftrnnstn}" th:attr="data-original=${r.ftrnnstn}" data-tabla="GCCTRNMS00" />
+                </td>
+                <td>
+                    <input type="text" id="miInput" th:name="'items[' + ${iterStat.index} + '].ftrnclu'"
+                        th:value="${r.ftrnclu}" th:attr="data-original=${r.ftrnclu}" data-tabla="GCCTRNMS00" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

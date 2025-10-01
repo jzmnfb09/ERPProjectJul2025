@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Módulos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
+    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+
+    <style>
+        .navbar-brand img {
+            max-height: 48px;
+            width: auto;
+        }
+
+        .card.module:hover {
+            transform: translateY(-4px);
+            transition: transform .15s ease;
+        }
+
+        body {
+            background-color: #292929;
+            color: #fff;
+            font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        }
+
+        ul {
+            list-style-type: circle;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Redirección si no hay usuario -->
+    <div th:if="${usuario == null}">
+        <script>window.location.href = '/login';</script>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{https://www.promex-logistics.com.mx}">
+                <img th:src="@{/img/kdimg/logo.png}" alt="Logo">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topbar"
+                aria-controls="topbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="topbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-white small d-none d-md-inline"
+                        th:text="'Bienvenido, ' + ${session.usuario.username}"></span>
+
+                    <!-- Solo superadmin -->
+                    <div th:if="${#strings.equalsIgnoreCase(rol, 'superadmin')}">
+                        <a th:href="@{/usuarios}" class="btn btn-outline-light">
+                            <i class="fas fa-user-cog me-1"></i> Usuarios
+                        </a>
+
+                    </div>
+
+                    <!-- Cambiar contraseña -->
+                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                        data-bs-target="#cambiarPasswordModal">
+                        <i class="fas fa-key me-1"></i> Contraseña
+                    </button>
+
+                    <!-- Cerrar sesión -->
+                    <form th:action="@{/logout}" method="post" class="m-0">
+                        <button type="submit" class="btn btn-outline-light">
+                            <i class="fa-solid fa-left-to-bracket"></i> Salir
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container py-5">
+        <!-- Grid de módulos -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 text-center">
+
+            <!-- GCCS -->
+            <div class="col">
+                <div class="bg-card card module h-100 bg-dark border-0 shadow-sm d-flex">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <img th:src="@{/img/gccs.png}" alt="GCCS" class="img-fluid mb-3" style="max-height:140px;">
+                        <p class="fw-semibold mb-0 text-white">GCCS</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPERACIONES -->
+            <div class="col">
+                <div class="bg-card card module h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <img th:src="@{/img/operaciones.png}" alt="Operaciones" class="img-fluid mb-3"
+                            style="max-height:140px;">
+                        <p class="fw-semibold mb-0 text-white">OPERACIONES</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PLANEACIÓN -->
+            <div class="col">
+                <div class="bg-card card module h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <img th:src="@{/img/planeacion.png}" alt="Planeación" class="img-fluid mb-3"
+                            style="max-height:140px;">
+                        <p class="fw-semibold mb-0 text-white">PLANEACIÓN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVENTARIOS -->
+            <div class="col">
+                <div class="bg-card card module h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <img th:src="@{/img/inventarios.png}" alt="Inventarios" class="img-fluid mb-3"
+                            style="max-height:140px;">
+                        <p class="fw-semibold mb-0 text-white">INVENTARIOS</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEGURIDAD -->
+            <div class="col">
+                <div class="bg-card card module h-100 bg-dark border-0 shadow-sm">
+                    <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                        <img th:src="@{/img/seguridad.png}" alt="Seguridad" class="img-fluid mb-3"
+                            style="max-height:140px;">
+                        <p class="fw-semibold mb-0 text-white">SEGURIDAD</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IT (GESTIÓN DE TRENES) - link -->
+            <div class="col">
+                <a th:href="@{/gestionTrenes}" class="text-decoration-none">
+                    <div class=" bg-card card module h-100 bg-dark border-0 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <img th:src="@{/img/trenes.png}" alt="IT (Gestión de Trenes)" class="img-fluid mb-3"
+                                style="max-height:140px;">
+                            <p class="fw-semibold mb-0 text-white">IT (GESTIÓN DE TRENES)</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- HELP DESK - abre modal -->
+            <div class="col">
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#helpDeskModal">
+                    <div class="bg-card card module h-100 bg-dark border-0 shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <img th:src="@{/img/helpdesk.png}" alt="Help Desk" class="img-fluid mb-3"
+                                style="max-height:140px;">
+                            <p class="fw-semibold mb-0 text-white">HELP DESK</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- KD OFFSITE - abre modal -->
+            <div class="col">
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#KDModal">
+                    <div class="bg-card card module h-100 bg-dark border-0 rounded-lg shadow-sm">
+                        <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                            <img th:src="@{/img/kdoffsite.png}" alt="KD Offsite" class="img-fluid mb-3"
+                                style="max-height:140px;">
+                            <p class="fw-semibold mb-0 text-white">KD OFFSITE</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer bg-danger text-white text-center py-3 mt-auto footer">
+        <div class="container">
+            © Copyright 2025 <strong>Promex Logistics S. de R.L. de C.V.</strong> Derechos reservados.
+        </div>
+    </footer>
+
+    <!-- MODAL: Cambiar contraseña -->
+    <div class="modal fade" id="cambiarPasswordModal" tabindex="-1" aria-labelledby="cambiarPasswordLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <form method="post" th:action="@{/usuario/cambiar-password}">
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title" id="cambiarPasswordLabel"><strong>Cambiar Contraseña</strong></h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                        <div th:if="${mensaje}" class="alert alert-success" th:text="${mensaje}"></div>
+
+                        <div class="mb-3">
+                            <label for="actual" class="form-label">Contraseña actual</label>
+                            <input type="password" class="form-control" id="actual" name="actual" required
+                                maxlength="12">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nueva" class="form-label">Nueva contraseña</label>
+                            <input type="password" class="form-control" id="nueva" name="nueva" required maxlength="12">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmar" class="form-label">Confirmar nueva contraseña</label>
+                            <input type="password" class="form-control" id="confirmar" name="confirmar" required
+                                maxlength="12">
+                        </div>
+                    </div>
+
+                    <div class="modal-footer border-secondary">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-danger">Cambiar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Help Desk -->
+    <div class="modal fade" id="helpDeskModal" tabindex="-1" aria-labelledby="helpDeskLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="helpDeskLabel"><strong>Menú Help Desk</strong></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <h5 class="modal-title" id="KDLabel"><strong>Menú</strong></h5>
+                        <ul>
+                            <li><a th:href="@{http://10.81.177.90:8080/}" target="_blank"
+                                    class="list-group-item list-group-item-action">CONEXIÓN DE SCANNERS</a></li>
+                            <li><a th:href="@{http://10.81.177.74/wikipromex/index.php/P%C3%A1gina_principal}"
+                                    target="_blank" class="list-group-item list-group-item-action">WIKIPROMEX</a></li>
+                            <li><a th:href="@{http://10.81.177.90:8081/}" target="_blank"
+                                    class="list-group-item list-group-item-action">CLOCKS DINÁMICOS</a></li>
+                            <li><a th:href="@{https://pmx-mdm-t01.promex.midwestexp.com/MobiControl/oauth/error/err_redirect_sign_in_missing?redirectUrl=https:%2F%2Fpmx-mdm-t01.promex.midwestexp.com%2FMobiControl%2FWebConsole}"
+                                    target="_blank" class="list-group-item list-group-item-action">SOTI</a></li>
+                            <li><a th:href="@{http://10.81.177.74:8080/promex/dashboard/monitor}" target="_blank"
+                                    class="list-group-item list-group-item-action">PROMEX MONITOR</a></li>
+                            <li><a th:href="@{http://10.81.177.74:9191/survey}" target="_blank"
+                                    class="list-group-item list-group-item-action">DESBLOQUEO DE USUARIOS</a></li>
+                            <li><a th:href="@{http://10.81.177.90/}" target="_blank"
+                                    class="list-group-item list-group-item-action">INVENTARIO IT</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: KD Offsite -->
+    <div class="modal fade" id="KDModal" tabindex="-1" aria-labelledby="KDLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="KDLabel"><strong>KD Offsite</strong></h5>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <h5 class="modal-title" id="KDLabel"><strong>Menú Principal</strong></h5>
+                        <ul>
+                            <li><a th:href="@{/kdoffsite}"
+                                    class="list-group-item list-group-item-action">Mantenimiento a Case Module</a></li>
+                            <li><a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                                    data-bs-target="#modalEliminarDupla">
+                                    Eliminar Case Module Duplicados
+                                </a></li>
+                        </ul>
+                    </div>
+                    <div class="list-group">
+                        <h5 class="modal-title" id="KDLabel"><strong>Consultas</strong></h5>
+                        <ul>
+                            <li>
+                                <a href="#" class="list-group-item list-group-item-action" data-bs-toggle="modal"
+                                    data-bs-target="#modalMonitorKD">
+                                    Monitor KD Offsite
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para eliminar duplicados -->
+    <div class="modal fade" id="modalEliminarDupla" tabindex="-1" aria-labelledby="modalEliminarDuplaLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="modalEliminarDuplaLabel"><strong> Eliminar Case Module Duplicados
+                        </strong></h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-eliminarCM">
+                        <div class="mb-3">
+                            <label class="form-label">Case Module:</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnGuardarCambios">Eliminar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para monitor KD -->
+    <div class="modal fade" id="modalMonitorKD" tabindex="-1" aria-labelledby="modalMonitorKDLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg"><!-- más ancho -->
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="modalMonitorKDLabel"><strong>Monitor KD</strong></h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-eliminarCM">
+                        <h5><strong>Buscar por</strong></h5><br>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Pallet ID:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">LPN:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">No. Parte:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">No. Trailer:</label>
+                                <input type="text" class="form-control">
+                            </div>
+                        </div>
+
+                        <h5><strong>Rango de fechas</strong></h5>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">De:</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">A:</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" id="btnGuardarCambios">Buscar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Abrir modal de contraseña si hay mensaje/error -->
+    <script th:inline="javascript">
+        let hayError = /*[[${error != null}]]*/ false;
+        let hayMensaje = /*[[${mensaje != null}]]*/ false;
+        if (hayError || hayMensaje) {
+            const modal = new bootstrap.Modal(document.getElementById('cambiarPasswordModal'));
+            modal.show();
+        }
+    </script>
+</body>
+
+</html>

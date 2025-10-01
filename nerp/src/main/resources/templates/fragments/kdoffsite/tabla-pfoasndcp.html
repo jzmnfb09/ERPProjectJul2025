@@ -1,0 +1,26 @@
+<div th:fragment="tablaPfoasndcp">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>LPN Serial Number</th>
+                <th>Part Number</th>
+                <th>Part Color</th>
+                <th>Container QTY</th>
+                <th>Decanted Date</th>
+                <th>Decanted Time</th>
+                <th>Decanted User</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r : ${pfoasndcp}">
+                <td th:text="${r.assrl}"></td>
+                <td th:text="${r.asprt}"></td>
+                <td th:text="${r.asprc}"></td>
+                <td th:text="${r.asqty}"></td>
+                <td th:text="${r.asdecd}"></td>
+                <td th:text="${r.asdect}"></td>
+                <td th:text="${r.asdecu}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

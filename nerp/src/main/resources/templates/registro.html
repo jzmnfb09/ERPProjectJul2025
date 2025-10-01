@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="icon" th:href="@{/img/minilogo.png}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css}">
+    
+</head>
+<body>
+
+<div class="login-container">
+    <p>Registro</p>
+
+    <!-- Alerta de error -->
+    <div th:if="${error}" class="alert alert-danger d-flex align-items-center shadow mb-3" role="alert">
+        <i class="fas fa-exclamation-circle me-2"></i>
+        <span th:text="${error}"></span>
+    </div>
+
+    <!-- Alerta de éxito -->
+    <div th:if="${mensaje}" class="alert alert-success d-flex align-items-center shadow mb-3" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        <span th:text="${mensaje}"></span>
+    </div>
+
+    <form th:action="@{/registro}" method="post">
+        <div class="input-group">
+            <label for="username">Usuario <i class="fas fa-user"></i></label>
+            <input type="text" id="username" name="username" required oninput="this.value = this.value.toUpperCase().trim()">
+        </div>
+
+        <div class="input-group">
+            <label for="password">Contraseña <i class="fas fa-lock"></i></label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit">Crear cuenta <i class="fas fa-user-plus"></i></button>
+    </form>
+
+    <div class="forgot-password">
+        <a th:href="@{/login}">¿Ya tienes cuenta? Inicia sesión</a>
+    </div>
+</div>
+
+</body>
+</html>

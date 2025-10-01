@@ -1,0 +1,115 @@
+<div th:fragment="tablaT07sprp">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>OG Plant Code</th>
+                <th>OG Ship Category</th>
+                <th>OG Month</th>
+                <th>OG RRN</th>
+                <th>TRAIN Number</th>
+                <th>CARD ID</th>
+                <th>Cart Seq</th>
+                <th>Cart Pos</th>
+                <th>Cart Seq#</th>
+                <th>MBPN</th>
+                <th>Color</th>
+                <th>Year</th>
+                <th>Model</th>
+                <th>MCID</th>
+                <th>Shipped Qty</th>
+                <th>Cart Lic Plate</th>
+                <th>Label Serial#</th>
+                <th>Scheduled Dispatch Date</th>
+                <th>Scheduled Dispatch Time</th>
+                <th>Actual Delivery Date</th>
+                <th>Actual Delivery Time</th>
+                <th>ADN Flag</th>
+                <th>ADN Date</th>
+                <th>ADN TIME</th>
+                <th>Actual Dispatch Date</th>
+                <th>Actual Dispatch Time</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r, iterStat : ${t07sprp}">
+                <td style="display:none;"><input type="hidden" th:name="'items[' + ${iterStat.index} + '].spare3'"
+                        th:value="${r.spare3}" th:attr="data-original=${r.spare3}" data-tabla="T07SPRP" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ogplcd'"
+                        th:value="${r.ogplcd}" th:attr="data-original=${r.ogplcd}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ogsctg'"
+                        th:value="${r.ogsctg}" th:attr="data-original=${r.ogsctg}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ogcrmm'"
+                        th:value="${r.ogcrmm}" th:attr="data-original=${r.ogcrmm}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ogrrn'"
+                        th:value="${r.ogrrn}" th:attr="data-original=${r.ogrrn}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].train'"
+                        th:value="${r.train}" th:attr="data-original=${r.train}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].crtid'"
+                        th:value="${r.crtid}" th:attr="data-original=${r.crtid}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].cntpsq'"
+                        th:value="${r.cntpsq}" th:attr="data-original=${r.cntpsq}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].cntptn'"
+                        th:value="${r.cntptn}" th:attr="data-original=${r.cntptn}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].crtseq'"
+                        th:value="${r.crtseq}" th:attr="data-original=${r.crtseq}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].mbpn'"
+                        th:value="${r.mbpn}" th:attr="data-original=${r.mbpn}" data-tabla="T07SPRP" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ptclr'"
+                        th:value="${r.ptclr}" th:attr="data-original=${r.ptclr}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].year'"
+                        th:value="${r.year}" th:attr="data-original=${r.year}" data-tabla="T07SPRP" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].model'"
+                        th:value="${r.model}" th:attr="data-original=${r.model}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].mcid'"
+                        th:value="${r.mcid}" th:attr="data-original=${r.mcid}" data-tabla="T07SPRP" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].shpqty'"
+                        th:value="${r.shpqty}" th:attr="data-original=${r.shpqty}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].crtlpt'"
+                        th:value="${r.crtlpt}" th:attr="data-original=${r.crtlpt}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].lblsno'"
+                        th:value="${r.lblsno}" th:attr="data-original=${r.lblsno}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].sdspdt'"
+                        th:value="${r.sdspdt}" th:attr="data-original=${r.sdspdt}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].sdssptm'"
+                        th:value="${r.sdsptm}" th:attr="data-original=${r.sdsptm}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].deldat'"
+                        th:value="${r.deldat}" th:attr="data-original=${r.deldat}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].deltim'"
+                        th:value="${r.deltim}" th:attr="data-original=${r.deltim}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].adnflg'"
+                        th:value="${r.adnflg}" th:attr="data-original=${r.adnflg}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].adndat'"
+                        th:value="${r.adndat}" th:attr="data-original=${r.adndat}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].adntim'"
+                        th:value="${r.adntim}" th:attr="data-original=${r.adntim}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].adspdt'"
+                        th:value="${r.adspdt}" th:attr="data-original=${r.adspdt}" data-tabla="T07SPRP" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].adsptm'"
+                        th:value="${r.adsptm}" th:attr="data-original=${r.adsptm}" data-tabla="T07SPRP" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

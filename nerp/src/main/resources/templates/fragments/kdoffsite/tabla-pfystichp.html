@@ -1,0 +1,25 @@
+<!-- archivo: tabla-pfystichp.html -->
+<div th:fragment="tablaPfystichp">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Supplier#</th>
+                <th>Supplier Loc Code</th>
+                <th>ASN#</th>
+                <th>Case Location</th>
+                <th>Case Status</th>
+                <th>Case Module Code</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r : ${pfystichp}" th:attr="data-casem=${r.tccas}" onclick="cargarTablas(this)">
+                <td th:text="${r.tcsup}"></td>
+                <td th:text="${r.tcsul}"></td>
+                <td th:text="${r.tcasn}"></td>
+                <td th:text="${r.tcloc}"></td>
+                <td th:text="${r.tcsts}"></td>
+                <td th:text="${r.tccas}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

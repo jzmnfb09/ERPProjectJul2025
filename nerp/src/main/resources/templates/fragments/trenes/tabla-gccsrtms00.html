@@ -1,0 +1,39 @@
+<div th:fragment="tablaGccsrtms00">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Train Number</th>
+                <th>Checksheet Number</th>
+                <th>Part Number</th>
+                <th>Part Color</th>
+                <th>Order Quantity</th>
+                <th>Content Tag ID#</th>
+                <th>Container Status</th>
+                <th>Shipped Qty</th>
+                <th>Short Qty</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r, iterStat : ${gccsrtms00}">
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrttrn'"
+                        th:value="${r.fsrttrn}" th:attr="data-original=${r.fsrttrn}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtchs'"
+                        th:value="${r.fsrtchs}" th:attr="data-original=${r.fsrtchs}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtprt'"
+                        th:value="${r.fsrtprt}" th:attr="data-original=${r.fsrtprt}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtpclr'"
+                        th:value="${r.fsrtpclr}" th:attr="data-original=${r.fsrtpclr}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtoqty'"
+                        th:value="${r.fsrtoqty}" th:attr="data-original=${r.fsrtoqty}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtcids'"
+                        th:value="${r.fsrtcids}" th:attr="data-original=${r.fsrtcids}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtcsts'"
+                        th:value="${r.fsrtcsts}" th:attr="data-original=${r.fsrtcsts}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtshpq'"
+                        th:value="${r.fsrtshpq}" th:attr="data-original=${r.fsrtshpq}" data-tabla="GCCSRTMS00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fsrtshrq'"
+                        th:value="${r.fsrtshrq}" th:attr="data-original=${r.fsrtshrq}" data-tabla="GCCSRTMS00" /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

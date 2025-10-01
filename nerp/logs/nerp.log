@@ -1,0 +1,138 @@
+2025-06-12T07:43:09.869-06:00  INFO 5972 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 5972 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T07:43:09.892-06:00  INFO 5972 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T07:43:11.799-06:00  INFO 5972 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T07:43:11.847-06:00  INFO 5972 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 0 JDBC repository interfaces.
+2025-06-12T07:43:13.291-06:00  INFO 5972 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T07:43:13.330-06:00  INFO 5972 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T07:43:13.332-06:00  INFO 5972 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T07:43:13.456-06:00  INFO 5972 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T07:43:13.458-06:00  INFO 5972 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3396 ms
+2025-06-12T07:43:15.708-06:00  INFO 5972 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T07:43:15.735-06:00  INFO 5972 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 7.281 seconds (process running for 8.093)
+2025-06-12T07:43:37.020-06:00  INFO 5972 --- [nerp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T07:43:37.021-06:00  INFO 5972 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T07:43:37.026-06:00  INFO 5972 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-12T08:20:13.575-06:00  INFO 21284 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 21284 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T08:20:13.581-06:00  INFO 21284 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T08:20:15.055-06:00  INFO 21284 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T08:20:15.098-06:00  INFO 21284 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 0 JDBC repository interfaces.
+2025-06-12T08:20:16.336-06:00  INFO 21284 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T08:20:16.369-06:00  INFO 21284 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T08:20:16.369-06:00  INFO 21284 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T08:20:16.475-06:00  INFO 21284 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T08:20:16.478-06:00  INFO 21284 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2740 ms
+2025-06-12T08:20:18.201-06:00  INFO 21284 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T08:20:18.244-06:00  INFO 21284 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 5.853 seconds (process running for 6.586)
+2025-06-12T08:20:30.641-06:00  INFO 21284 --- [nerp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T08:20:30.643-06:00  INFO 21284 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T08:20:30.643-06:00  INFO 21284 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-06-12T08:21:22.390-06:00  INFO 8456 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 8456 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T08:21:22.396-06:00  INFO 8456 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T08:21:23.981-06:00  INFO 8456 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T08:21:24.031-06:00  INFO 8456 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 33 ms. Found 0 JDBC repository interfaces.
+2025-06-12T08:21:25.228-06:00  INFO 8456 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T08:21:25.258-06:00  INFO 8456 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T08:21:25.259-06:00  INFO 8456 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T08:21:25.384-06:00  INFO 8456 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T08:21:25.388-06:00  INFO 8456 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2838 ms
+2025-06-12T08:21:27.192-06:00  INFO 8456 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T08:21:27.217-06:00  INFO 8456 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 6.06 seconds (process running for 6.8)
+2025-06-12T08:21:38.698-06:00  INFO 8456 --- [nerp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T08:21:38.698-06:00  INFO 8456 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T08:21:38.708-06:00  INFO 8456 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2025-06-12T08:22:45.027-06:00  INFO 13936 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 13936 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T08:22:45.033-06:00  INFO 13936 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T08:22:46.669-06:00  INFO 13936 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T08:22:46.732-06:00  INFO 13936 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 0 JDBC repository interfaces.
+2025-06-12T08:22:47.895-06:00  INFO 13936 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T08:22:47.931-06:00  INFO 13936 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T08:22:47.934-06:00  INFO 13936 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T08:22:48.050-06:00  INFO 13936 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T08:22:48.051-06:00  INFO 13936 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2866 ms
+2025-06-12T08:22:49.700-06:00  INFO 13936 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T08:22:49.728-06:00  INFO 13936 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 5.913 seconds (process running for 6.708)
+2025-06-12T08:23:34.881-06:00  INFO 13936 --- [nerp] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T08:23:34.881-06:00  INFO 13936 --- [nerp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T08:23:34.881-06:00  INFO 13936 --- [nerp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-06-12T08:59:28.844-06:00  INFO 11388 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 11388 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T08:59:28.851-06:00  INFO 11388 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T08:59:30.539-06:00  INFO 11388 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T08:59:30.592-06:00  INFO 11388 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35 ms. Found 0 JDBC repository interfaces.
+2025-06-12T08:59:31.825-06:00  INFO 11388 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T08:59:31.857-06:00  INFO 11388 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T08:59:31.857-06:00  INFO 11388 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T08:59:31.966-06:00  INFO 11388 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T08:59:31.967-06:00  INFO 11388 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2982 ms
+2025-06-12T08:59:33.730-06:00  INFO 11388 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T08:59:33.766-06:00  INFO 11388 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 6.056 seconds (process running for 6.934)
+2025-06-12T08:59:43.095-06:00  INFO 11388 --- [nerp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T08:59:43.096-06:00  INFO 11388 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T08:59:43.098-06:00  INFO 11388 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-12T09:26:18.505-06:00  INFO 28892 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 28892 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T09:26:18.508-06:00  INFO 28892 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T09:26:20.021-06:00  INFO 28892 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T09:26:20.075-06:00  INFO 28892 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 0 JDBC repository interfaces.
+2025-06-12T09:26:21.354-06:00  INFO 28892 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T09:26:21.392-06:00  INFO 28892 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T09:26:21.393-06:00  INFO 28892 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T09:26:21.497-06:00  INFO 28892 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T09:26:21.498-06:00  INFO 28892 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2847 ms
+2025-06-12T09:26:23.605-06:00  INFO 22100 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 22100 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T09:26:23.613-06:00  INFO 22100 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T09:26:23.882-06:00  INFO 28892 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T09:26:23.908-06:00  INFO 28892 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 6.505 seconds (process running for 7.375)
+2025-06-12T09:26:25.165-06:00  INFO 22100 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T09:26:25.219-06:00  INFO 22100 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 39 ms. Found 0 JDBC repository interfaces.
+2025-06-12T09:26:26.479-06:00  INFO 22100 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T09:26:26.511-06:00  INFO 22100 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T09:26:26.512-06:00  INFO 22100 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T09:26:26.605-06:00  INFO 22100 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T09:26:26.605-06:00  INFO 22100 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2750 ms
+2025-06-12T09:26:28.321-06:00  WARN 22100 --- [nerp] [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2025-06-12T09:26:28.355-06:00  INFO 22100 --- [nerp] [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-06-12T09:26:28.423-06:00 ERROR 22100 --- [nerp] [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2025-06-12T09:27:12.868-06:00  INFO 28892 --- [nerp] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-12T09:27:12.888-06:00  INFO 28892 --- [nerp] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2025-06-12T09:27:15.037-06:00  INFO 13684 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 13684 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T09:27:15.047-06:00  INFO 13684 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T09:27:16.564-06:00  INFO 13684 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T09:27:16.627-06:00  INFO 13684 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 0 JDBC repository interfaces.
+2025-06-12T09:27:17.859-06:00  INFO 13684 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T09:27:17.886-06:00  INFO 13684 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T09:27:17.886-06:00  INFO 13684 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T09:27:17.988-06:00  INFO 13684 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T09:27:17.990-06:00  INFO 13684 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2813 ms
+2025-06-12T09:27:19.661-06:00  INFO 13684 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T09:27:19.702-06:00  INFO 13684 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 5.809 seconds (process running for 6.564)
+2025-06-12T09:27:32.625-06:00  INFO 13684 --- [nerp] [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T09:27:32.627-06:00  INFO 13684 --- [nerp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T09:27:32.629-06:00  INFO 13684 --- [nerp] [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-12T10:44:49.094-06:00  INFO 7676 --- [nerp] [main] com.example.nerp.NerpApplication         : Starting NerpApplication using Java 23.0.2 with PID 7676 (C:\Users\cristobal.g\Music\nerp\target\classes started by cristobal.g in C:\Users\cristobal.g\Music\nerp)
+2025-06-12T10:44:49.100-06:00  INFO 7676 --- [nerp] [main] com.example.nerp.NerpApplication         : No active profile set, falling back to 1 default profile: "default"
+2025-06-12T10:44:50.805-06:00  INFO 7676 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2025-06-12T10:44:50.879-06:00  INFO 7676 --- [nerp] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 0 JDBC repository interfaces.
+2025-06-12T10:44:52.203-06:00  INFO 7676 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-12T10:44:52.236-06:00  INFO 7676 --- [nerp] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-12T10:44:52.236-06:00  INFO 7676 --- [nerp] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.40]
+2025-06-12T10:44:52.357-06:00  INFO 7676 --- [nerp] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-12T10:44:52.357-06:00  INFO 7676 --- [nerp] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3127 ms
+2025-06-12T10:44:58.814-06:00  INFO 7676 --- [nerp] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-12T10:44:58.834-06:00  INFO 7676 --- [nerp] [main] com.example.nerp.NerpApplication         : Started NerpApplication in 10.907 seconds (process running for 11.751)
+2025-06-12T10:45:01.708-06:00  INFO 7676 --- [nerp] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-12T10:45:01.710-06:00  INFO 7676 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-12T10:45:01.715-06:00  INFO 7676 --- [nerp] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms

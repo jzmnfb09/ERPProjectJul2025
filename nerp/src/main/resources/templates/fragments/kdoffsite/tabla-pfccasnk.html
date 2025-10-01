@@ -1,0 +1,28 @@
+<div th:fragment="tablaPfccasnk">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Supplier Number</th>
+                <th>ASN Number</th>
+                <th>Box Serial#</th>
+                <th>Part#</th>
+                <th>Part Color</th>
+                <th>Cantidad</th>
+                <th>PC Number</th>
+                <th>Inv_Cat</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r : ${pfccasnk}" onclick="cargarPfoasndcp(this)">
+                <td th:text="${r.supplier_no}"></td>
+                <td th:text="${r.asn_number}"></td>
+                <td th:text="${r.box_serial_no}"></td>
+                <td th:text="${r.part_number}"></td>
+                <td th:text="${r.part_color}"></td>
+                <td th:text="${r.confirm_del_qty}"></td>
+                <td th:text="${r.pc_number}"></td>
+                <td th:text="${r.inventory_category}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

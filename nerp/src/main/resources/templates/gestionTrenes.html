@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Trenes</title>
+    <link rel="stylesheet" th:href="@{/css/kdstyles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/kdstyles/bootstrap.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
+    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+    
+
+
+
+    <style>
+        .navbar-brand img {
+            max-height: 48px;
+            width: auto;
+        }
+
+        .card.module:hover {
+            transform: translateY(-4px);
+            transition: transform .15s ease;
+        }
+
+        body {
+            background-color: #292929;
+            color: #fff;
+            font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{https://www.promex-logistics.com.mx}">
+                <img th:src="@{/img/kdimg/logo.png}" alt="Logo">
+            </a>
+            <form id="formFiltro" th:action="@{/gestionTrenes}" method="post"
+                class="d-flex flex-column flex-md-row gap-2 w-100" style="align-items: center;">
+                <select class="form-select" style="width: 100px; height: 40px;" name="tipoFiltro" id="tipoFiltro"
+                    required>
+                    <option value="tren">Tren</option>
+                    <option value="batch">Batch</option>
+                </select>
+                <!-- Input flotante -->
+                <div class="d-flex align-items-center gap-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="campoFiltro" name="filtro" th:value="${filtro}"
+                            required autocomplete="off" style="text-transform: uppercase;"
+                            placeholder="Escribe un tren o batch"
+                            oninput="this.value = this.value.toUpperCase().trim()">
+                        <label for="filtro">Tren o Batch</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-light"><i class="fa-solid fa-search"></i>
+                        Buscar</button>
+                </div>
+            </form>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-light" onclick="limpiarBusqueda()">
+                <i class="fa-solid fa-broom"></i> Limpiar
+            </button>
+            <form th:action="@{/guardar}" method="post">
+                <button type="submit" class="btn btn-light"><i class="fas fa-save"></i> Guardar</button>
+            </form>
+
+            <a href="/docs/tabla.pdf" target="_blank" class="btn btn-light">
+                <i class="fas fa-question-circle"></i> Ayuda
+            </a>
+
+            <a href="/bitacora" class="btn btn-light" title="Ver Bitácora">
+                <i class="fas fa-book"></i> Bitácora
+            </a>
+
+            <a href="javascript:history.back()" class="btn btn-light">
+                <i class="fa-solid fa-arrow-left"></i> Regresar
+            </a>
+            
+        </div>
+    </nav>
+
+    <!-- Radios para seleccionar la tab -->
+    <div class="tabs">
+        <div class="btn-group" role="group" aria-label="Tipo Filtro">
+            <input type="radio" class="btn-check" name="tipoFiltro" id="tren" value="tab1" autocomplete="off" checked>
+            <label class="btn btn-outline-light" for="tren">Tren</label>
+
+            <input type="radio" class="btn-check" name="tipoFiltro" id="batch" value="tab2" autocomplete="off">
+            <label class="btn btn-outline-light" for="batch">Batch</label>
+        </div>
+    </div>
+
+    <div class="tab-content">
+        <!--Columna izquierda-->
+        <div class="layout-wrapper d-flex tab-pane fade show active" id="tab1">
+            <div class="col-izq me-3">
+                <div class="table-header-title">
+                    GCCTRNMS00
+                </div>
+                <div class="table-wrapper" id="tabla-gcctrnms00">
+                    <div th:replace="~{fragments/trenes/tabla-gcctrnms00 :: tablaGcctrnms00}"></div>
+                </div>
+                <div th:if="${filtro != null and filtro != '' and #lists.isEmpty(gcctrnms00)}">
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var myModal = new bootstrap.Modal(document.getElementById('noResultsModal'));
+                            myModal.show();
+                        });
+                    </script>
+                </div>
+                <div class="table-header-title">
+                    T03OG3P
+                </div>
+                <div class="table-wrapper" id="tabla-t03og3p">
+                    <div th:replace="~{fragments/trenes/tabla-t03og3p :: tablaT03og3p}"></div>
+                </div>
+                <div class="table-header-title">
+                    T02OG2P
+                </div>
+                <div class="table-wrapper" id="tabla-t02og2p">
+                    <div th:replace="~{fragments/trenes/tabla-t02og2p :: tablaT02og2p}"></div>
+                </div>
+                <div class="table-header-title">
+                    T01OG1P
+                </div>
+                <div class="table-wrapper" id="tabla-t01og1p">
+                    <div th:replace="~{fragments/trenes/tabla-t01og1p :: tablaT01og1p}"></div>
+                </div>
+            </div>
+            <!--Columna derecha-->
+            <div class="col-der">
+                <div class="table-header-title">
+                    GCCCASHD00
+                </div>
+                <div class="table-wrapper" id="tabla-gcccashd00">
+                    <div th:replace="~{fragments/trenes/tabla-gcccashd00 :: tablaGcccashd00}"></div>
+                </div>
+                <div class="table-header-title">
+                    GCCCASDT00
+                </div>
+                <div class="table-wrapper" id="tabla-gcccasdt00">
+                    <div th:replace="~{fragments/trenes/tabla-gcccasdt00 :: tablaGcccasdt00}"></div>
+                </div>
+                <div class="table-header-title">
+                    T07SPRP
+                </div>
+                <div class="table-wrapper" id="tabla-t07sprp">
+                    <div th:replace="~{fragments/trenes/tabla-t07sprp :: tablaT07sprp}"></div>
+                </div>
+                <div class="table-header-title">
+                    GCCSRTMS00
+                </div>
+                <div class="table-wrapper" id="tabla-gccsrtms00">
+                    <div th:replace="~{fragments/trenes/tabla-gccsrtms00 :: tablaGccsrtms00}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab2" class="tab-pane fade d-none">
+            <div class="container">
+                <!-- Texto en la parte superior -->
+
+                <!-- Cajas de texto -->
+                <!-- Mostrar cajas vacías si la lista está vacía -->
+
+                <!-- Mostrar cajas con datos si la lista tiene elementos -->
+                <div class="cajas" th:if="${tipoFiltro == 'tren'}" th:each="r, iterStat : ${bthh}">
+                    <div class="cajas">
+                        <div class="caja-item">
+                            <label for="caja1">#Batch:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthbthñ'" th:value="${r.fbthbthñ}"
+                                th:attr="data-original=${r.fbthbthñ}" data-tabla="GCMBTHHD00" readonly id="caja1" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja2">Plan Code:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthplcd'" th:value="${r.fbthplcd}"
+                                th:attr="data-original=${r.fbthplcd}" data-tabla="GCMBTHHD00" readonly id="caja2" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja3">Status:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthstsc'" th:value="${r.fbthstsc}"
+                                th:attr="data-original=${r.fbthstsc}" data-tabla="GCMBTHHD00" id="caja3" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja4">Steging:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthstgl'" th:value="${r.fbthstgl}"
+                                th:attr="data-original=${r.fbthstgl}" data-tabla="GCMBTHHD00" readonly id="caja4" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja5">Delivery Zone:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthdzon'" th:value="${r.fbthdzon}"
+                                th:attr="data-original=${r.fbthdzon}" data-tabla="GCMBTHHD00" readonly id="caja5" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja6">Ship Category:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthsctg'" th:value="${r.fbthsctg}"
+                                th:attr="data-original=${r.fbthsctg}" data-tabla="GCMBTHHD00" readonly id="caja6" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja7">Usuario:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthcusr'" th:value="${r.fbthcusr}"
+                                th:attr="data-original=${r.fbthcusr}" data-tabla="GCMBTHHD00" id="caja7" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja8">Batch CST:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthplst'" th:value="${r.fbthplst}"
+                                th:attr="data-original=${r.fbthplst}" data-tabla="GCMBTHHD00" readonly id="caja5" />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="cajas" th:if="${tipoFiltro == 'batch'}" th:each="r, iterStat : ${bachh}">
+                    <!-- Misma estructura que arriba -->
+                    <div class="cajas">
+                        <div class="caja-item">
+                            <label for="caja1">#Batch:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthbthñ'" th:value="${r.fbthbthñ}"
+                                th:attr="data-original=${r.fbthbthñ}" data-tabla="GCMBTHHD00" readonly id="caja1" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja2">Plan Code:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthplcd'" th:value="${r.fbthplcd}"
+                                th:attr="data-original=${r.fbthplcd}" data-tabla="GCMBTHHD00" readonly id="caja2" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja3">Status:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthstsc'" th:value="${r.fbthstsc}"
+                                th:attr="data-original=${r.fbthstsc}" data-tabla="GCMBTHHD00" id="caja3" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja4">Steging:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthstgl'" th:value="${r.fbthstgl}"
+                                th:attr="data-original=${r.fbthstgl}" data-tabla="GCMBTHHD00" readonly id="caja4" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja5">Delivery Zone:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthdzon'" th:value="${r.fbthdzon}"
+                                th:attr="data-original=${r.fbthdzon}" data-tabla="GCMBTHHD00" readonly id="caja5" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja6">Ship Category:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthsctg'" th:value="${r.fbthsctg}"
+                                th:attr="data-original=${r.fbthsctg}" data-tabla="GCMBTHHD00" readonly id="caja6" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja7">Usuario:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthcusr'" th:value="${r.fbthcusr}"
+                                th:attr="data-original=${r.fbthcusr}" data-tabla="GCMBTHHD00" id="caja7" />
+                        </div>
+                        <div class="caja-item">
+                            <label for="caja8">Batch CST:</label>
+                            <input type="text" class="form-control"
+                                th:name="'items[' + ${iterStat.index} + '].fbthplst'" th:value="${r.fbthplst}"
+                                th:attr="data-original=${r.fbthplst}" data-tabla="GCMBTHHD00" readonly id="caja5" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contenedor de tabla -->
+                <ul class="tables-list">
+                    <li class="table-wrapper">
+                        <table class="table table-hover table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Multiple Trn Batch Number</th>
+                                    <th>Multiple Status Code</th>
+                                    <th>Multiple Trn Train Nbr</th>
+                                    <th>Multiple Trn Orig Div Seq#</th>
+                                    <th>Multiple Repres Flag</th>
+                                    <th>Multiple Trn Create TimeStap</th>
+                                    <th>Multiple Trn Create User</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-dark" th:if="${tipoFiltro == 'tren'}" th:each="r, iterStat : ${bth}">
+                                <tr>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdbth'" th:value="${r.fbtdbth}"
+                                            th:attr="data-original=${r.fbtdbth}" data-tabla="GCMBTHDT00" readonly />
+                                    </td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdstsc'"
+                                            th:value="${r.fbtdstsc}" th:attr="data-original=${r.fbtdstsc}"
+                                            data-tabla="GCMBTHDT00" /></td>
+                                    <td><input class="plain celda-tren" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdtrn'" th:value="${r.fbtdtrn}"
+                                            th:attr="data-original=${r.fbtdtrn}" data-tabla="GCMBTHDT00" readonly />
+                                    </td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdseq'" th:value="${r.fbtdseq}"
+                                            th:attr="data-original=${r.fbtdseq}" data-tabla="GCMBTHDT00" readonly />
+                                    </td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdtrfl'"
+                                            th:value="${r.fbtdtrfl}" th:attr="data-original=${r.fbtdtrfl}"
+                                            data-tabla="GCMBTHDT00" readonly /></td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdctms'"
+                                            th:value="${r.fbtdctms}" th:attr="data-original=${r.fbtdctms}"
+                                            data-tabla="GCMBTHDT00" readonly /></td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdcusr'"
+                                            th:value="${r.fbtdcusr}" th:attr="data-original=${r.fbtdcusr}"
+                                            data-tabla="GCMBTHDT00" /></td>
+
+
+                                </tr>
+                            </tbody>
+                            <tbody class="table-dark" th:if="${tipoFiltro == 'batch'}" th:each="r, iterStat : ${bach}">
+                                <tr>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdbth'" th:value="${r.fbtdbth}"
+                                            th:attr="data-original=${r.fbtdbth}" data-tabla="GCMBTHDT00" readonly />
+                                    </td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdstsc'"
+                                            th:value="${r.fbtdstsc}" th:attr="data-original=${r.fbtdstsc}"
+                                            data-tabla="GCMBTHDT00" /></td>
+                                    <td><input class="plain celda-tren" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdtrn'" th:value="${r.fbtdtrn}"
+                                            th:attr="data-original=${r.fbtdtrn}" data-tabla="GCMBTHDT00" readonly />
+                                    </td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdseq'" th:value="${r.fbtdseq}"
+                                            th:attr="data-original=${r.fbtdseq}" data-tabla="GCMBTHDT00" readonly />
+                                    </td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdtrfl'"
+                                            th:value="${r.fbtdtrfl}" th:attr="data-original=${r.fbtdtrfl}"
+                                            data-tabla="GCMBTHDT00" readonly /></td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdctms'"
+                                            th:value="${r.fbtdctms}" th:attr="data-original=${r.fbtdctms}"
+                                            data-tabla="GCMBTHDT00" readonly /></td>
+                                    <td><input class="plain" type="text"
+                                            th:name="'items[' + ${iterStat.index} + '].fbtdcusr'"
+                                            th:value="${r.fbtdcusr}" th:attr="data-original=${r.fbtdcusr}"
+                                            data-tabla="GCMBTHDT00" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    </li>
+            </div>
+        </div>
+    </div>
+
+
+    <!-----------------------------------
+                    FOOTER
+        ------------------------------------->
+
+    <footer class="footer bg-danger text-white text-center py-3 mt-auto footer">
+        <div class="container">
+            © Copyright 2025 <strong>Promex Logistics S. de R.L. de C.V.</strong> Derechos reservados.
+        </div>
+    </footer>
+
+    <script src="../static/js/scripts.js"></script>
+
+
+    <script>
+        //Muestra los tabs
+        document.querySelectorAll('input[name="tipoFiltro"]').forEach(function (input) {
+            input.addEventListener('change', function () {
+                const tab1 = document.getElementById("tab1");
+                const tab2 = document.getElementById("tab2");
+
+                if (this.value === "tab1") {
+                    tab1.classList.add("show", "active");
+                    tab1.classList.remove("d-none");
+
+                    tab2.classList.remove("show", "active");
+                    tab2.classList.add("d-none");
+                } else {
+                    tab2.classList.add("show", "active");
+                    tab2.classList.remove("d-none");
+
+                    tab1.classList.remove("show", "active");
+                    tab1.classList.add("d-none");
+                }
+            });
+        });
+
+        //Busca el tren clickeado
+        function buscarPorNumeroTren(numeroTrenCompleto) {
+            // Extraer la subcadena desde el 4º carácter, 8 caracteres de largo
+            const filtro = numeroTrenCompleto.substring(3, 11); // substring(3,11) = posiciones 4 a 11 (0-indexed)
+
+            console.log("Buscando tren con filtro:", filtro);
+
+            const campoFiltro = document.getElementById("campoFiltro");
+            const tipoFiltro = document.getElementById("tipoFiltro");
+            const formulario = document.getElementById("formFiltro");
+
+            campoFiltro.value = filtro;
+            tipoFiltro.value = "tren";
+
+            formulario.submit();
+        }
+
+        // Agrega el listener a todas las celdas de tren al cargar la página
+        document.addEventListener("DOMContentLoaded", function () {
+            const celdasTren = document.querySelectorAll(".celda-tren");
+
+            celdasTren.forEach(celda => {
+                celda.addEventListener("click", function () {
+                    const numeroTren = this.textContent.trim();
+                    buscarPorNumeroTren(numeroTren);
+                });
+            });
+        });
+    </script>
+
+
+
+
+    <!-- Overlay de carga -->
+    <div id="overlay-loading" style="display: none;">
+        <div class="spinner"></div>
+        <span>Guardando cambios...</span>
+    </div>
+
+    <!-----------------------------------
+                    MODALS
+        ------------------------------------->
+
+    <!-- Modal para "No se encontraron resultados" -->
+    <div class="modal fade" id="noResultsModal" tabindex="-1" aria-labelledby="noResultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center modal-kd">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noResultsModalLabel"><strong> Sin resultados </strong></h5>
+                </div>
+                <div class="modal-body" style="color: #fff;">
+                    No se encontraron resultados para <strong th:text="${filtro}">el tren o batch ingresado</strong>.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-------------------------------------------------------
+                    ACCIONES PARA LOS BOTONES DE CONTROLES
+        --------------------------------------------------------->
+    <!-- Botón para limpiar -->
+    <script>
+        function limpiarBusqueda() {
+            // Limpiar input
+            document.getElementById("campoFiltro").value = "";
+            document.getElementById("tipoFiltro").selectedIndex = 0;
+
+            // Limpiar contenido de las tablas
+            const tablas = document.querySelectorAll("tbody.table-dark");
+            tablas.forEach(t => t.innerHTML = "");
+
+            // Limpiar todos los inputs de tipo texto
+            const inputs = document.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="password"], input[type="search"]');
+            inputs.forEach(input => input.value = "");
+        }
+    </script>
+
+    <!-----------------------------------
+                    JS GRALES
+        ------------------------------------->
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            // Si hay parámetro en la URL, y es un reload, quitamos el parámetro visualmente
+            if (window.location.href.includes("filtro=")) {
+                // Esto borra los parámetros pero no recarga la página
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const checked = document.querySelector('input[name="tipoFiltro"]:checked');
+            if (checked) openTab(checked.value);
+        });
+
+    </script>
+
+
+
+    <!-- Estilos del overlay -->
+    <style>
+        #overlay-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+            font-size: 1.2rem;
+            color: #333;
+            cursor: wait;
+        }
+
+        .spinner {
+            border: 6px solid #ccc;
+            border-top: 6px solid #333;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,326 @@
+/* ------------------------------ 
+   Global Styles 
+--------------------------------*/
+
+
+a {
+    text-decoration: none;
+}
+
+html,
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #212529;
+    background-color: #292929;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* ------------------------------ 
+   Table Styles 
+--------------------------------*/
+.table {
+    /*width: 100%;*/
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: auto;
+    font-size: 0.9rem;
+    border-radius: 0.75rem;
+    min-width: 800px;
+    background-color: #242424;
+    /* Fondo oscuro */
+    color: white;
+    /* Texto blanco para contraste */
+    width: auto;               /* la tabla solo ocupa lo que necesite */
+}
+
+.table th,
+.table td {
+    border: 1px solid #444; /* Línea gris entre filas/columnas */
+    /*padding: 0.3rem 0.5rem;*/
+    word-wrap: break-word;
+    /* Evita que el contenido se desborde */
+    white-space: nowrap;       /* que no se expandan con saltos raros */
+    padding: 6px 10px;         /* espacio interno controlado */
+    text-align: center;
+}
+
+.table th,
+.table td {
+    background-color: #242424;
+    /* Fondo oscuro */
+    color: #242424;
+    /* Texto blanco para contraste */
+}
+
+/* Sticky Table Headers */
+.table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #242424;
+    color: white;
+    font-weight: bold;
+    z-index: 20;
+    border: 1px solid #444;
+    padding: 0.5rem;
+    height: 2.5rem;
+    vertical-align: middle;
+}
+
+thead tr:nth-child(2) th {
+    top: 2.5rem;
+    z-index: 19;
+    background-color: #242424;
+    border-bottom: 1px solid #555;
+}
+
+.table thead th:first-child {
+    box-shadow: inset 2px 0 0 #555;
+}
+
+.table thead th:last-child {
+    box-shadow: inset -2px 0 0 #555;
+}
+
+/* Secondary Table */
+.table-secondary {
+    color: #242424;
+}
+
+.table-secondary td {
+    background-color: white;
+    z-index: 1;
+}
+
+/* Table Titles */
+.table-title th {
+    height: 2.5rem;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 2px solid #555;
+    font-size: 0.9rem;
+}
+
+th {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Sticky horizontal */
+
+/* ------------------------------ 
+   Main Layout Styles 
+--------------------------------*/
+.layout-wrapper {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.col-izq,
+.col-der {
+    width: 50%;
+    min-width: 300px;
+}
+
+.col-der {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 700px) {
+    .layout-wrapper {
+        flex-wrap: wrap;
+    }
+
+    .col-izq,
+    .col-der {
+        width: 100%;
+        flex: 1;
+        max-width: 50%;
+    }
+}
+
+/* ------------------------------ 
+   Table Wrapper Styles 
+--------------------------------*/
+.table-wrapper {
+    position: relative;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+    border-radius: 0.75rem;
+    background-color: #292929;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+    border: 1px solid #555;
+    margin-bottom: 1.5rem;
+    min-width: 100%;
+    border-top: none;
+
+    margin-top: 0;
+    padding-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/* ------------------------------ 
+   Modal Styles 
+--------------------------------*/
+.modal-body {
+    background-color: #292929;
+}
+
+.modal .list-group-item {
+    background-color: #292929;
+    color: #fff;
+    border: none;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.modal .list-group-item:hover {
+    color: #dc0404;
+    background-color: #4d4d4d;
+}
+
+.modal .modal-header .modal-title {
+    color: #cd0000;
+}
+
+.modal .modal-footer {
+    background-color: #242424;
+    border-top: 1px solid #343a40;
+}
+
+.modal .modal-header {
+    background-color: #242424;
+    border-bottom: 1px solid #343a40;
+}
+
+/* ------------------------------ 
+   Navbar and Footer Styles 
+--------------------------------*/
+.navbar {
+    background-color: #a00 !important;
+    /* naranja */
+}
+
+.footer {
+    background-color: #a00 !important;
+    /* gris oscuro */
+    color: #f1f1f1 !important;
+    /* texto claro */
+}
+
+.bg-card {
+    background-color: #242424 !important;
+    border-radius: 15px;
+}
+
+/* ------------------------------ 
+   Table Header Title Styles 
+--------------------------------*/
+.table-header-title {
+    background-color: #404040;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
+    border: 1px solid #444;
+    border-bottom: none;
+    max-width: 100%;
+    margin: 0;
+    width: 100%;
+
+    margin-bottom: 0;
+    padding-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-bottom: 1px solid #444;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+.cajas {
+    display: flex;
+    justify-content: flex-start;
+    /* Importante para que el scroll tenga sentido */
+    gap: 20px;
+    min-width: max-content;
+    /* Esto hace que las cajas se expandan en línea */
+}
+
+.caja-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: 150px;
+}
+
+.caja-item input {
+    border: none;
+    box-shadow: none;
+    background-color: #e7e2e2;
+}
+
+table input {
+    width: auto;
+    min-width: 1ch;
+    border: none !important;
+    outline: none !important;
+    background: transparent;
+    color: #242424;
+    font: inherit;
+    box-shadow: none !important;
+    padding: 0;
+    margin: 0;
+}
+
+.th-small {
+    white-space: normal;
+    /* permite salto de línea */
+    height: auto;
+    /* asegura que crezca si hay más líneas */
+    word-wrap: break-word;
+    /* permite dividir palabras largas si es necesario */
+    text-align: center;
+}
+
+.tabs {
+    padding-left: 1.5rem;
+    /* para alinear con tablas */
+    display: flex;
+    justify-content: flex-start;
+    /* o center si los quieres centrados */
+    margin-top: 10px;
+    /* controla separación con la barra roja */
+    margin-bottom: 0;
+    /* sin espacio extra debajo */
+    border-radius: 6px 6px 0 0;
+    /* opcional: que se vean como pestañas */
+}
+
+#miInput {
+    width: auto;           /* Ajusta al contenido */
+    min-width: 50px;       /* Tamaño mínimo */
+    max-width: 100%;       /* No exceder contenedor */
+    padding: 2px 5px;      /* Opcional para que quede bonito */
+    font-family: inherit;  /* Mantener misma fuente que tu sitio */
+}

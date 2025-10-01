@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" th:href="@{/img/minilogo.png}">
+    <title>Ejemplo de Estructura HTML</title>
+    <link rel="stylesheet" th:href="@{/CSS/StyleBatch.css}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Texto en la parte superior -->
+        <div class="texto-superior">
+            <h2>Batch</h2>
+            <a th:href="@{/TablasT}">
+                <button class="boton">Trenes</button>
+            </a>
+        </div>
+
+        <!-- Cajas de texto -->
+        <div class="cajas">
+            <!-- Cajas a la izquierda -->
+            <div class="cajas-izquierda">
+                <div class="caja-item">
+                    <label for="caja1">#Batch:</label>
+                    <input type="text" id="caja1" placeholder="">
+                </div>
+                <div class="caja-item">
+                    <label for="caja2">Plan Code:</label>
+                    <input type="text" id="caja2" placeholder="">
+                </div>
+                <div class="caja-item">
+                    <label for="caja3">Status:</label>
+                    <input type="text" id="caja3" placeholder="">
+                </div>
+                <div class="caja-item">
+                    <label for="caja4">Steging</label>
+                    <input type="text" id="caja4" placeholder="">
+                </div>
+                <div class="caja-item">
+                    <label for="caja5">Delivery Zone:</label>
+                    <input type="text" id="caja5" placeholder="">
+                </div>
+            </div>
+
+            <!-- Espacio entre cajas -->
+            <div style="width: 50px;"></div>
+
+            <!-- Cajas a la derecha -->
+            <div class="cajas-derecha">
+                <div class="caja-item">
+                    <label for="caja6">Ship Category</label>
+                    <input type="text" id="caja6" placeholder="">
+                </div>
+                <div class="caja-item">
+                    <label for="caja7">Usuario:</label>
+                    <input type="text" id="caja7" placeholder="">
+                </div>
+                <div class="caja-item">
+                    <label for="caja8">Batch CST:</label>
+                    <input type="text" id="caja8" placeholder="">
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor de tabla -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Multiple Trn Batch Number</th>
+                        <th>Multiple Status Code</th>
+                        <th>Multiple Trn Train Nbr</th>
+                        <th>Multiple Trn Orig Div Seq#</th>
+                        <th>Multiple Repres Flag</th>
+                        <th>Multiple Trn Create TimeStap</th>
+                        <th>Multiple Trn Create User</th>
+                        <th>Shedule Dispatch Date</th>
+                        <th>Shedule Dispatch Time</th>
+                        <th>Delivery Location</th>
+                    </tr>
+                </thead>
+                <tbody th:each="item : ${listgcmbthdt00}">
+                    <tr>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDBTH#'"
+                                th:value="${item['GCM.FBTDBTH#']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDSTSC'"
+                                th:value="${item['GCM.FBTDSTSC']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDTRN#'"
+                                th:value="${item['GCM.FBTDTRN#']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDSEQ#'"
+                                th:value="${item['GCM.FBTDSEQ#']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDTRFL'"
+                                th:value="${item['GCM.FBTDTRFL']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDCTMS'"
+                                th:value="${item['GCM.FBTDCTMS']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].GCM.FBTDCUSR'"
+                                th:value="${item['GCM.FBTDCUSR']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].T02.SDSPDT'"
+                                th:value="${item['T02.SDSPDT']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].T02.SDSPTM'"
+                                th:value="${item['T02.SDSPTM']}" /></td>
+                        <td><input class="plain" type="text" th:name="'items[' + ${iterStat.index} + '].T03.DVLCTN'"
+                                th:value="${item['T03.DVLCTN']}" /></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

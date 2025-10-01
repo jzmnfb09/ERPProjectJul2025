@@ -1,0 +1,32 @@
+<div th:fragment="tablaPfystihp">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Supplier#</th>
+                <th>Supplier Loc Code</th>
+                <th>ASN#</th>
+                <th>SCAC</th>
+                <th>Trailer#</th>
+                <th>Scheduled/A Date</th>
+                <th>Scheduled Time</th>
+                <th>Force Receiving Username</th>
+                <th>User Changed</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r : ${pfystihp}">
+                <td th:text="${r.thsup}"></td>
+                <td th:text="${r.thsul}"></td>
+                <td th:text="${r.thasn}"></td>
+                <td th:text="${r.thsca}"></td>
+                <td th:text="${r.thtrl}"></td>
+                <td th:text="${r.thdat}"></td>
+                <td th:text="${r.thtim}"></td>
+                <td th:text="${r.thfrcu}"></td>
+                <td th:text="${r.user_chg}"></td>
+                <td th:text="${r.thsts}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

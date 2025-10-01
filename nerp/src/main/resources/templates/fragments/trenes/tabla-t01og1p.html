@@ -1,0 +1,58 @@
+<div th:fragment="tablaT01og1p">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-secondary">
+                <th>Cart Sec</th>
+                <th>Container Secuence</th>
+                <th>MBPN</th>
+                <th>Color</th>
+                <th>Year</th>
+                <th>Model</th>
+                <th>Supplier Code</th>
+                <th>Sup Loc</th>
+                <th>Cart Lic Plate</th>
+                <th>Cart Id</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r, iterStat : ${t01og1p}">
+                <td style="display:none;"><input type="hidden" th:name="'items[' + ${iterStat.index} + '].spare3'"
+                        th:value="${r.spare3}" th:attr="data-original=${r.spare3}" data-tabla="T01OG1P" /></td>
+                <td style="display:none;"><input type="hidden" th:name="'items[' + ${iterStat.index} + '].fcasplsp'"
+                        th:value="${r.fcasplsp}" th:attr="data-original=${r.fcasplsp}" data-tabla="T01OG1P" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].crtseq'"
+                        th:value="${r.crtseq}" th:attr="data-original=${r.crtseq}" data-tabla="T01OG1P" maxlength="1" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].cntpsq'"
+                        th:value="${r.cntpsq}" th:attr="data-original=${r.cntpsq}" data-tabla="T01OG1P" maxlength="1" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].mbpn'"
+                        th:value="${r.mbpn}" th:attr="data-original=${r.mbpn}" data-tabla="T01OG1P" maxlength="14" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ptclr'"
+                        th:value="${r.ptclr}" th:attr="data-original=${r.ptclr}" data-tabla="T01OG1P" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].year'"
+                        th:value="${r.year}" th:attr="data-original=${r.year}" data-tabla="T01OG1P" maxlength="1" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].model'"
+                        th:value="${r.model}" th:attr="data-original=${r.model}" data-tabla="T01OG1P" maxlength="3" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].supcde'"
+                        th:value="${r.supcde}" th:attr="data-original=${r.supcde}" data-tabla="T01OG1P" maxlength="6" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].splctn'"
+                        th:value="${r.splctn}" th:attr="data-original=${r.splctn}" data-tabla="T01OG1P" maxlength="2" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].crtlpt'"
+                        th:value="${r.crtlpt}" th:attr="data-original=${r.crtlpt}" data-tabla="T01OG1P"
+                        style="color:black !important; background-color: #a2f5b5 !important;" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].crtid'"
+                        th:value="${r.crtid}" th:attr="data-original=${r.crtid}" data-tabla="T01OG1P" maxlength="8" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

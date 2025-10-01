@@ -1,0 +1,62 @@
+<div th:fragment="tablaT03og3p">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Plant code</th>
+                <th>O/G# SHIP C</th>
+                <th>From KD lot</th>
+                <th>To KD lot</th>
+                <th>Train status</th>
+                <th>Train Build Flag</th>
+                <th>Delivery Location</th>
+                <th>Staging Station</th>
+                <th>Tugger Driv User Id</th>
+                <th>Scheduled Dispatch Date</th>
+                <th>Scheduled Dispatch Time</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r, iterStat: ${t03og3p}">
+                <td style="display:none;"><input type="hidden" th:name="'items[' + ${iterStat.index} + '].spare3'"
+                        th:value="${r.spare3}" th:attr="data-original=${r.spare3}" data-tabla="T03OG3P" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ogplcd'"
+                        th:value="${r.ogplcd}" th:attr="data-original=${r.ogplcd}" data-tabla="T03OG3P" maxlength="2" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].ogsctg'"
+                        th:value="${r.ogsctg}" th:attr="data-original=${r.ogsctg}" data-tabla="T03OG3P" maxlength="2" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].kdrrnf'"
+                        th:value="${r.kdrrnf}" th:attr="data-original=${r.kdrrnf}" data-tabla="T03OG3P" maxlength="6" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].kdrrnt'"
+                        th:value="${r.kdrrnt}" th:attr="data-original=${r.kdrrnt}" data-tabla="T03OG3P" maxlength="4" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].trnsts'"
+                        th:value="${r.trnsts}" th:attr="data-original=${r.trnsts}" data-tabla="T03OG3P" maxlength="1"
+                        style="color:black !important; background-color: #a2f5b5 !important;" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].trnbld'"
+                        th:value="${r.trnbld}" th:attr="data-original=${r.trnbld}" data-tabla="T03OG3P" maxlength="1"
+                        style="color:black !important; background-color: #a2f5b5 !important;" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].dvlctn'"
+                        th:value="${r.dvlctn}" th:attr="data-original=${r.dvlctn}" data-tabla="T03OG3P" maxlength="6" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].stgstn'"
+                        th:value="${r.stgstn}" th:attr="data-original=${r.stgstn}" data-tabla="T03OG3P" maxlength="3"
+                        style="color:black !important; background-color: #a2f5b5 !important;" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].tggrdr'"
+                        th:value="${r.tggrdr}" th:attr="data-original=${r.tggrdr}" data-tabla="T03OG3P" maxlength="10"
+                        style="color:black !important; background-color: #a2f5b5 !important;" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].sdspdt'"
+                        th:value="${r.sdspdt}" th:attr="data-original=${r.sdspdt}" data-tabla="T03OG3P" maxlength="8" />
+                </td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].sdsptm'"
+                        th:value="${r.sdsptm}" th:attr="data-original=${r.sdsptm}" data-tabla="T03OG3P" maxlength="3" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

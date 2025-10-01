@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios</title>
+    <link rel="stylesheet" th:href="@{/css/kdstyles/bootstrap.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top shadow-sm">
+        <!-- ZONA DE CONTROLES -->
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{https://www.promex-logistics.com.mx}">
+                <img th:src="@{/img/kdimg/logo.png}" alt="Logo">
+            </a>
+            <!-- Botones secundarios -->
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCrearUser">
+                    <i class="fa-solid fa-user-plus"></i> Crear Usuario
+                </button>
+                <a href="javascript:history.back()" class="btn btn-light">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </a>
+            </div>
+            </form>
+        </div>
+    </nav>
+
+
+    <div class="container">
+        <br>
+        <p class="modal-title" style="font-size: 2rem;"><strong>Gestión de Usuarios</strong></p>
+    </div>
+    <hr>
+
+    <div class="container">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr class="table-title">
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="table-dark">
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.id}">ID</td>
+                    <td th:text="${usuario.username}">Usuario</td>
+                    <td th:text="${usuario.rol}">Rol</td>
+                    <td class="col-acciones">
+                        <div class="acciones-wrapper">
+                            <form th:action="@{/usuarios/eliminar}" method="post"
+                                onsubmit="return confirmarEliminacion()">
+                                <input type="hidden" name="id" th:value="${usuario.id}" />
+                                <button type="submit" class="btn btn-outline-light btn-acciones">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
+                            </form>
+
+                            <form th:action="@{'/usuarios/editar/' + ${usuario.id}}" method="get">
+                                <button type="submit" class="btn btn-outline-light btn-acciones">
+                                    <i class="fas fa-edit"></i> Editar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal para crear usuario -->
+    <!-- Modal para crear usuario -->
+    <div class="modal fade" id="modalCrearUser" tabindex="-1" aria-labelledby="modalCrearUserLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <!-- Header -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalCrearUserLabel"><strong>Crear Usuario</strong></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+
+                <!-- Body -->
+                <div class="modal-body">
+                    <form th:action="@{/usuarios/crear}" method="post">
+                        <div class="mb-3">
+                            <label for="inputCrearUser" class="form-label">Usuario:</label>
+                            <input type="text" name="username" class="form-control" id="inputCrearUser" required
+                                oninput="this.value = this.value.toUpperCase().trim()" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="form-label">Contraseña:</label>
+                            <input type="password" name="password" class="form-control" id="inputPassword" required />
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" id="btnCrear">Crear</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+
+                        <!-- Mensajes -->
+                        <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+                        <p th:if="${mensaje}" th:text="${mensaje}"
+                            style="color:green; background-color:#e0f9e0; border:1px solid #4CAF50; padding:10px; border-radius:5px; margin-top:10px;">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenimiento a Case Module</title>
+    <link rel="stylesheet" th:href="@{/css/kdstyles/bootstrap.min.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+
+    <style>
+        .navbar-brand img {
+            max-height: 48px;
+            width: auto;
+        }
+
+        .card.module:hover {
+            transform: translateY(-4px);
+            transition: transform .15s ease;
+        }
+
+        body {
+            background-color: #292929;
+            font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top shadow-sm">
+        <!-- ZONA DE CONTROLES -->
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{https://www.promex-logistics.com.mx}">
+                <img th:src="@{/img/kdimg/logo.png}" alt="Logo">
+            </a>
+
+            <form th:action="@{/kdoffsite}" method="post" id="caseForm"
+                class="d-flex flex-column flex-md-row gap-2 w-100">
+                <!-- Input flotante -->
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="casem" name="casem" th:value="${casem}"
+                        placeholder="Escribe un case module" style="text-transform: uppercase;">
+                    <label for="casem">Case Module</label>
+                </div>
+
+                <!-- Botones principales -->
+                <div class="d-flex align-items-center gap-2">
+                    <button type="submit" class="btn btn-light">
+                        <i class="fa-solid fa-search"></i> Buscar
+                    </button>
+                    <button type="button" class="btn btn-light" onclick="limpiarBusqueda()">
+                        <i class="fa-solid fa-broom"></i> Limpiar
+                    </button>
+                </div>
+                <!-- Botones secundarios -->
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-light" onclick="actualizarTablasConFiltro()">
+                        <i class="fa-solid fa-arrows-rotate"></i> Actualizar
+                    </button>
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#">
+                        <i class="fa-solid fa-ban"></i> Dar de baja
+                    </button>
+                    <button type="button" class="btn btn-light" id="editarBtnKD" title="Editar">
+                        <i class="fa-solid fa-pen-to-square"></i> Editar
+                    </button>
+                    <button type="button" class="btn btn-light">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </button>
+
+                    <a href="javascript:history.back()" class="btn btn-light">
+                        <i class="fa-solid fa-arrow-left"></i> Regresar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <!-----------------------------------
+                        TABLAS
+        ------------------------------------->
+
+    <div class="layout-wrapper">
+        <!-- Columna izquierda (Tabla 1) -->
+        <div class="col-izq">
+            <div class="table-wrapper">
+                <!-- Tabla 1 -->
+                <div class="table-header-title">
+                    PFYSTICHP
+                </div>
+                <div class="table-wrapper" id="tabla-pfystichp">
+                    <div th:replace="~{fragments/kdoffsite/tabla-pfystichp :: tablaPfystichp}"></div>
+                </div>
+                <div th:if="${casem != null and casem != '' and #lists.isEmpty(pfystichp)}">
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var myModal = new bootstrap.Modal(document.getElementById('noResultsModal'));
+                            myModal.show();
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda columna -->
+        <div class="col-der">
+            <!-- Tabla 2 -->
+             <div class="table-header-title">
+                PFYSTIHP
+            </div>
+            <div class="table-wrapper" id="tabla-pfystihp">
+                <div th:replace="~{fragments/kdoffsite/tabla-pfystihp :: tablaPfystihp}"></div>
+            </div>
+            <!--  Tabla 3  -->
+              <div class="table-header-title">
+                PFCCASNK
+            </div>
+            <div class="table-wrapper" id="tabla-pfccasnk">
+                <div th:replace="~{fragments/kdoffsite/tabla-pfccasnk :: tablaPfccasnk}"></div>
+            </div>
+            <!--  Tabla 4  -->
+              <div class="table-header-title">
+                PFOASNDCP
+            </div>
+            <div class="table-wrapper" id="tabla-pfoasndcp">
+                <div th:replace="~{fragments/kdoffsite/tabla-pfoasndcp :: tablaPfoasndcp}"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-----------------------------------
+                    FOOTER
+        ------------------------------------->
+
+    <footer class="footer bg-danger text-white text-center py-3 mt-auto footer">
+        <div class="container">
+            © Copyright 2025 <strong>Promex Logistics S. de R.L. de C.V.</strong> Derechos reservados.
+        </div>
+    </footer>
+
+
+    <!-----------------------------------
+                    MODALS
+        ------------------------------------->
+
+    <!-- Modal para "No se encontraron resultados" -->
+    <div class="modal fade" id="noResultsModal" tabindex="-1" aria-labelledby="noResultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center modal-kd">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="noResultsModalLabel"><strong> Sin resultados </strong></h5>
+                </div>
+                <div class="modal-body" style="color: #fff;">
+                    No se encontraron resultados para el Case Module ingresado.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal para editar -->
+    <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="modalEditarLabel"><strong> Editar KD </strong></h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-editar">
+                        <div class="mb-3">
+                            <label for="inputCaseModule" class="form-label">Case Module:</label>
+                            <input type="text" class="form-control" id="inputCaseModule" disabled readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCaseLocation" class="form-label">Ubicación:</label>
+                            <input type="text" class="form-control" id="inputCaseLocation">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCaseStatus" class="form-label">Estado:</label>
+                            <select class="form-select" id="inputCaseStatus">
+                                <option value=" ">---</option>
+                                <option value="R">R</option>
+                                <option value="P">P</option>
+                                <option value="DP">DP</option>
+                                <option value="DC">DC</option>
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnGuardarCambios">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar 2 -->
+    <div class="modal fade" id="modalEditarASN" tabindex="-1" aria-labelledby="modalEditarASNLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="modalEditarASNLabel"><strong> Cambio de estado </strong></h5>
+                </div>
+                <div class="modal-body">
+                    <form id="form-editarASN">
+                        <div class="mb-3">
+                            <label for="inputASN" class="form-label">ASN:</label>
+                            <input type="text" class="form-control" id="inputASN" disabled readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputEstado" class="form-label">Estado:</label>
+                            <select class="form-select" id="inputEstado">
+                                <option value="2">2 — Activar</option>
+                                <option value="6">6 — Bloquear</option>
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="btnGuardarCambios">Guardar cambios</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-------------------------------------------------------
+                    ACCIONES PARA LOS BOTONES DE CONTROLES
+        --------------------------------------------------------->
+    <!-- Botón para limpiar -->
+    <script>
+        function limpiarBusqueda() {
+            // Limpiar input
+            document.getElementById("casem").value = "";
+
+            // Limpiar contenido de las tablas
+            const tablas = document.querySelectorAll("tbody.table-dark");
+            tablas.forEach(t => t.innerHTML = "");
+        }
+    </script>
+
+    <!-- Botón para actualizar -->
+    <script>
+        function actualizarTablasConFiltro() {
+            const caseModule = document.getElementById("casem").value;
+            if (!caseModule) {
+                console.warn("No hay case module ingresado.");
+                return;
+            }
+
+            const tablas = [
+                { id: "tabla-pfystichp", url: "kdoffsite/tabla-pfystichp" },
+                { id: "tabla-pfystihp", url: "kdoffsite/tabla-pfystihp" },
+                { id: "tabla-pfccasnk", url: "kdoffsite/tabla-pfccasnk" },
+                { id: "tabla-pfoasndcp", url: "kdoffsite/tabla-pfoasndcp" }
+            ];
+
+            tablas.forEach(tabla => {
+                fetch(`${tabla.url}?casem=${encodeURIComponent(caseModule)}`)
+                    .then(resp => resp.text())
+                    .then(html => {
+                        document.getElementById(tabla.id).innerHTML = html;
+                        console.log(`✅ Tabla "${tabla.id}" actualizada con éxito.`);
+                    })
+                    .catch(err => {
+                        console.error(`Error al actualizar ${tabla.id}:`, err);
+                    });
+            });
+        }
+    </script>
+
+
+
+    <!-----------------------------------
+                    CARGAR TABLAS
+        ------------------------------------->
+    <script>
+        let casemActual = null;
+        function cargarTablas(fila) {
+            const caseModule = fila.getAttribute("data-casem");
+            casemActual = caseModule;
+
+            if (!caseModule) {
+                console.warn("⚠️ No se encontró case module en la fila seleccionada.");
+                return;
+            }
+
+            //Cargar tabla PFYSTIHP
+
+            fetch(`kdoffsite/tabla-pfystihp?casem=${encodeURIComponent(caseModule)}`)
+                .then(resp => {
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    return resp.text();
+                })
+                .then(html => {
+                    document.getElementById("tabla-pfystihp").innerHTML = html;
+                    console.log(`Tabla PFYSTIHP actualizada para case: ${caseModule}`);
+
+                    // Aquí activamos el doble clic justo después de cargar
+                    activarDobleClickPFYSTIHP();
+                })
+                .catch(err => {
+                    console.error("Error al cargar la tabla PFYSTIHP:", err);
+                });
+
+            //Cargar tabla PFCCASNK
+
+            fetch(`kdoffsite/tabla-pfccasnk?casem=${encodeURIComponent(caseModule)}`)
+                .then(resp => {
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    return resp.text();
+                })
+                .then(html => {
+                    document.getElementById("tabla-pfccasnk").innerHTML = html;
+                    console.log(`Tabla PFCCASNK actualizada para case: ${caseModule}`);
+                })
+                .catch(err => {
+                    console.error("Error al cargar la tabla PFCCASNK:", err);
+                });
+        }
+    </script>
+
+
+    <script>
+        function cargarPfoasndcp(fila) {
+            if (!casemActual) {
+                console.warn("⚠️ No se ha seleccionado un Case Module aún.");
+                return;
+            }
+
+            //Cargar tabla PFOASNDCP
+            fetch(`kdoffsite/tabla-pfoasndcp?casem=${encodeURIComponent(casemActual)}`)
+                .then(resp => {
+                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                    return resp.text();
+                })
+                .then(html => {
+                    document.getElementById("tabla-pfoasndcp").innerHTML = html;
+                    console.log(`Tabla PFOASNDCP actualizada para case: ${casemActual}`);
+                })
+                .catch(err => {
+                    console.error("Error al cargar la tabla PFOASNDCP:", err);
+                });
+        }
+
+    </script>
+
+
+    <!---------------------------------------------
+                    CARGAR DATOS PARA EDITAR
+        ----------------------------------------------->
+    <!-- Editar KD — Tabla PFYSTICHP -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editarBtnKD = document.querySelector("button[title='Editar']");
+            const tablaPfystichp = document.querySelector("#tabla-pfystichp table");
+
+            editarBtnKD.addEventListener("click", function () {
+                if (!tablaPfystichp) {
+                    console.warn("No se encontró la tabla 'tabla-pfystichp'");
+                    return;
+                }
+
+                const primeraFila = tablaPfystichp.querySelector("tbody tr");
+                if (!primeraFila) {
+                    console.warn("La tabla está vacía");
+                    return;
+                }
+
+                const celdas = primeraFila.querySelectorAll("td");
+
+                // Asignar datos de las celdas a los inputs del modal
+                // Asegurar de que el orden corresponda con los campos
+                document.getElementById("inputCaseModule").value = celdas[5]?.textContent.trim() || "";
+                document.getElementById("inputCaseLocation").value = celdas[3]?.textContent.trim() || "";
+                document.getElementById("inputCaseStatus").value = celdas[4]?.textContent.trim() || "";
+
+                const modal = new bootstrap.Modal(document.getElementById('modalEditar'));
+                modal.show();
+            });
+        });
+    </script>
+
+    <!-- Editar estado — Tabla PFYSTIHP -->
+
+    <script>
+        function activarDobleClickPFYSTIHP() {
+            const tabla = document.querySelector("#tabla-pfystihp table");
+
+            if (!tabla) {
+                console.warn("Tabla PFYSTIHP no encontrada para el doble clic.");
+                return;
+            }
+
+            tabla.addEventListener("dblclick", function (e) {
+                const fila = e.target.closest("tr");
+                if (!fila) return;
+
+                const celdas = fila.querySelectorAll("td");
+
+                // Asignar valores al modal (ajusta los índices según tus columnas)
+                document.getElementById("inputASN").value = celdas[2]?.textContent.trim() || "";
+                document.getElementById("inputEstado").value = celdas[9]?.textContent.trim() || "";
+
+                const modal = new bootstrap.Modal(document.getElementById('modalEditarASN'));
+                modal.show();
+            });
+        }
+    </script>
+
+
+    <!-----------------------------------
+                    JS GRALES
+        ------------------------------------->
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            // Si hay parámetro en la URL, y es un reload, quitamos el parámetro visualmente
+            if (window.location.href.includes("casem=")) {
+                // Esto borra los parámetros pero no recarga la página
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const input = document.getElementById("casem");
+
+            input.addEventListener("input", function () {
+                this.value = this.value.toUpperCase();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

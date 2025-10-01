@@ -1,0 +1,33 @@
+<div th:fragment="tablaGcccashd00">
+    <table class="table table-hover table-bordered">
+        <thead class="table-dark">
+            <tr class="table-title">
+                <th>Checksheet Number</th>
+                <th>Lrg/Smi Part</th>
+                <th>Status Code</th>
+                <th>Packing User ID</th>
+                <th>Eligible Pack for Car</th>
+                <th>Cart Lic plate</th>
+            </tr>
+        </thead>
+        <tbody class="table-dark">
+            <tr th:each="r, iterStat : ${gcccashd00}">
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fcaschs'"
+                        th:value="${r.fcaschs}" th:attr="data-original=${r.fcaschs}" data-tabla="GCCCASHD00"
+                        maxlength="16" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fcasplsp'"
+                        th:value="${r.fcasplsp}" th:attr="data-original=${r.fcasplsp}" data-tabla="GCCCASHD00"
+                        maxlength="1" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fcascsts'"
+                        th:value="${r.fcascsts}" th:attr="data-original=${r.fcascsts}" data-tabla="GCCCASHD00"
+                        maxlength="2" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fcaspcku'"
+                        th:value="${r.fcaspcku}" th:attr="data-original=${r.fcaspcku}" data-tabla="GCCCASHD00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fcasepst'"
+                        th:value="${r.fcasepst}" th:attr="data-original=${r.fcasepst}" data-tabla="GCCCASHD00" /></td>
+                <td><input type="text" th:name="'items[' + ${iterStat.index} + '].fcascrtñ'"
+                        th:value="${r.fcascrtñ}" th:attr="data-original=${r.fcascrtñ}" data-tabla="GCCCASHD00" /></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

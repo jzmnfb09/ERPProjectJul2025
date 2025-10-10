@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
-    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 
     <style>
         .navbar-brand img {
@@ -79,7 +79,7 @@
                     <!-- Cerrar sesión -->
                     <form th:action="@{/logout}" method="post" class="m-0">
                         <button type="submit" class="btn btn-outline-light">
-                            <i class="fa-solid fa-left-to-bracket"></i> Salir
+                            <i class="fa-solid fa-door-open"></i> Cerrar Sesión
                         </button>
                     </form>
                 </div>
@@ -226,8 +226,8 @@
                     </div>
 
                     <div class="modal-footer border-secondary">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-danger">Cambiar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     </div>
                 </form>
             </div>
@@ -263,7 +263,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-secondary">
-                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -302,7 +302,7 @@
 
                 </div>
                 <div class="modal-footer border-secondary">
-                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -380,7 +380,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-light" id="btnGuardarCambios">Buscar</button>
+                    <button type="button" class="btn btn-light" id="btnGuardarCambios">Buscar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>

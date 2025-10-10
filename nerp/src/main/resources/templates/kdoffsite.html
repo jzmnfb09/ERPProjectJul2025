@@ -10,7 +10,7 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
     <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 
     <style>
         .navbar-brand img {
@@ -53,30 +53,28 @@
                     <button type="submit" class="btn btn-light">
                         <i class="fa-solid fa-search"></i> Buscar
                     </button>
-                    <button type="button" class="btn btn-light" onclick="limpiarBusqueda()">
-                        <i class="fa-solid fa-broom"></i> Limpiar
-                    </button>
-                </div>
-                <!-- Botones secundarios -->
-                <div class="d-flex align-items-center gap-2">
-                    <button type="button" class="btn btn-light" onclick="actualizarTablasConFiltro()">
-                        <i class="fa-solid fa-arrows-rotate"></i> Actualizar
-                    </button>
-                    <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#">
-                        <i class="fa-solid fa-ban"></i> Dar de baja
-                    </button>
-                    <button type="button" class="btn btn-light" id="editarBtnKD" title="Editar">
-                        <i class="fa-solid fa-pen-to-square"></i> Editar
-                    </button>
-                    <button type="button" class="btn btn-light">
-                        <i class="fa-solid fa-trash"></i> Eliminar
-                    </button>
-
-                    <a href="javascript:history.back()" class="btn btn-light">
-                        <i class="fa-solid fa-arrow-left"></i> Regresar
-                    </a>
-                </div>
             </form>
+        </div>
+        <!-- Botones secundarios -->
+        <div class="d-flex align-items-center gap-2">
+            <button type="button" class="btn btn-light" onclick="limpiarBusqueda()">
+                <i class="fa-solid fa-broom"></i> Limpiar
+            </button>
+            <button type="button" class="btn btn-light" onclick="actualizarTablasConFiltro()">
+                <i class="fa-solid fa-arrows-rotate"></i> Actualizar
+            </button>
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#">
+                <i class="fa-solid fa-ban"></i> Baja
+            </button>
+            <button type="button" class="btn btn-light" id="editarBtnKD" title="Editar">
+                <i class="fa-solid fa-pen-to-square"></i> Editar
+            </button>
+            <button type="button" class="btn btn-light">
+                <i class="fa-solid fa-trash"></i> Eliminar
+            </button>
+            <a th:href="@{/modulos}" class="btn btn-light">
+                <i class="fa-solid fa-door-open"></i> Salir
+            </a>
         </div>
     </nav>
 
@@ -85,6 +83,15 @@
         ------------------------------------->
 
     <div class="layout-wrapper">
+
+        <!-- Overlay de carga -->
+        <div id="overlay-cargando" class="overlay-cargando d-none">
+            <div class="overlay-contenido">
+                <div class="spinner"></div>
+                <p>Cargando...</p>
+            </div>
+        </div>
+
         <!-- Columna izquierda (Tabla 1) -->
         <div class="col-izq">
             <div class="table-wrapper">
@@ -109,21 +116,21 @@
         <!-- Segunda columna -->
         <div class="col-der">
             <!-- Tabla 2 -->
-             <div class="table-header-title">
+            <div class="table-header-title">
                 PFYSTIHP
             </div>
             <div class="table-wrapper" id="tabla-pfystihp">
                 <div th:replace="~{fragments/kdoffsite/tabla-pfystihp :: tablaPfystihp}"></div>
             </div>
             <!--  Tabla 3  -->
-              <div class="table-header-title">
+            <div class="table-header-title">
                 PFCCASNK
             </div>
             <div class="table-wrapper" id="tabla-pfccasnk">
                 <div th:replace="~{fragments/kdoffsite/tabla-pfccasnk :: tablaPfccasnk}"></div>
             </div>
             <!--  Tabla 4  -->
-              <div class="table-header-title">
+            <div class="table-header-title">
                 PFOASNDCP
             </div>
             <div class="table-wrapper" id="tabla-pfoasndcp">
@@ -152,7 +159,7 @@
     <!-- Modal para "No se encontraron resultados" -->
     <div class="modal fade" id="noResultsModal" tabindex="-1" aria-labelledby="noResultsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content text-center modal-kd">
+            <div class="modal-content text-center modal-kd border-danger">
                 <div class="modal-header">
                     <h5 class="modal-title" id="noResultsModalLabel"><strong> Sin resultados </strong></h5>
                 </div>
@@ -445,6 +452,24 @@
             });
         });
     </script>
+
+
+    <!-- Script para Overlay cargando -->
+    <script>
+        function mostrarOverlay() {
+            document.getElementById('overlay-cargando').classList.remove('d-none');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const forms = document.querySelectorAll("form");
+            forms.forEach(form => {
+                form.addEventListener("submit", function () {
+                    mostrarOverlay();
+                });
+            });
+        });
+    </script>
+
 
 </body>
 

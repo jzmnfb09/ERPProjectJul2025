@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Usuarios</title>
-    <link rel="stylesheet" th:href="@{/css/kdstyles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
     <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 </head>
 
@@ -40,6 +40,25 @@
     </div>
     <hr>
 
+    <!-- Card de Error -->
+    <div th:if="${error}" class="card bg-dark border-danger mt-3" style="max-width: 500px; margin: auto;"
+        id="card-error">
+        <div class="card-body text-danger">
+            <h5 class="card-title">Error</h5>
+            <p class="card-text" th:text="${error}"></p>
+        </div>
+    </div>
+
+    <!-- Card de Éxito -->
+    <div th:if="${mensaje}" class="card bg-dark border-success mt-3" style="max-width: 500px; margin: auto;"
+        id="card-mensaje">
+        <div class="card-body text-success">
+            <h5 class="card-title">Éxito</h5>
+            <p class="card-text" th:text="${mensaje}"></p>
+        </div>
+    </div>
+
+
     <div class="container">
         <table class="table table-hover table-bordered">
             <thead class="table-dark">
@@ -57,16 +76,16 @@
                     <td th:text="${usuario.rol}">Rol</td>
                     <td class="col-acciones">
                         <div class="acciones-wrapper">
-                            <form th:action="@{/usuarios/eliminar}" method="post"
-                                onsubmit="return confirmarEliminacion()">
+                            <form th:action="@{/usuarios/eliminar}" method="post" class="form-eliminar">
                                 <input type="hidden" name="id" th:value="${usuario.id}" />
-                                <button type="submit" class="btn btn-outline-light btn-acciones">
+                                <button type="button" class="btn btn-light btn-acciones btn-eliminar"
+                                    data-bs-toggle="modal" data-bs-target="#modalEliminar" th:data-id="${usuario.id}">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </button>
                             </form>
 
                             <form th:action="@{'/usuarios/editar/' + ${usuario.id}}" method="get">
-                                <button type="submit" class="btn btn-outline-light btn-acciones">
+                                <button type="submit" class="btn btn-light btn-acciones">
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
                             </form>
@@ -78,7 +97,6 @@
     </div>
 
     <!-- Modal para crear usuario -->
-    <!-- Modal para crear usuario -->
     <div class="modal fade" id="modalCrearUser" tabindex="-1" aria-labelledby="modalCrearUserLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content bg-dark text-white border-secondary">
@@ -89,38 +107,95 @@
                         aria-label="Cerrar"></button>
                 </div>
 
-                <!-- Body -->
                 <div class="modal-body">
                     <form th:action="@{/usuarios/crear}" method="post">
                         <div class="mb-3">
                             <label for="inputCrearUser" class="form-label">Usuario:</label>
-                            <input type="text" name="username" class="form-control" id="inputCrearUser" required
-                                oninput="this.value = this.value.toUpperCase().trim()" />
+                            <input type="text" name="username" class="form-control" id="crearUser" autocomplete="off"
+                                required oninput="this.value = this.value.toUpperCase().trim()" />
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword" class="form-label">Contraseña:</label>
-                            <input type="password" name="password" class="form-control" id="inputPassword" required />
+                            <input type="password" name="password" class="form-control" id="crearPassword"
+                                autocomplete="off" required />
                         </div>
 
-                        <!-- Footer -->
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger" id="btnCrear">Crear</button>
+                            <button type="submit" class="btn btn-danger" id="btnCrear" autocomplete="off">Crear</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         </div>
-
-                        <!-- Mensajes -->
-                        <p th:if="${error}" th:text="${error}" style="color:red;"></p>
-                        <p th:if="${mensaje}" th:text="${mensaje}"
-                            style="color:green; background-color:#e0f9e0; border:1px solid #4CAF50; padding:10px; border-radius:5px; margin-top:10px;">
-                        </p>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Modal Confirmación Eliminar -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="modalEliminarLabel">Confirmar Eliminación</h5>
+                </div>
+                <div class="modal-body">
+                    <p>¿Seguro que deseas eliminar este usuario?</p>
+                </div>
+                <div class="modal-footer">
+                    <form id="formConfirmarEliminar" th:action="@{/usuarios/eliminar}" method="post">
+                        <input type="hidden" name="id" id="inputEliminarId" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalCrear = document.getElementById('modalCrearUser');
+
+            modalCrear.addEventListener('show.bs.modal', () => {
+                modalCrear.querySelector('input[name="nuevoUsuario"]').value = '';
+                modalCrear.querySelector('input[name="nuevaClave"]').value = '';
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cards = document.querySelectorAll('#card-error, #card-mensaje');
+            cards.forEach(function (card) {
+                setTimeout(() => {
+                    card.classList.add("fade");
+                    card.style.transition = "opacity 1s ease";
+                    card.style.opacity = "0";
+                    setTimeout(() => card.remove(), 1000);
+                }, 1250); // segundos
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modalEliminar = document.getElementById('modalEliminar');
+            const inputEliminarId = document.getElementById('inputEliminarId');
+
+            modalEliminar.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget; // Botón que abrió el modal
+                const userId = button.getAttribute('data-id'); // Sacamos el id
+                inputEliminarId.value = userId; // Lo ponemos en el input oculto
+            });
+        });
+    </script>
+
+
+
 </body>
 
 </html>

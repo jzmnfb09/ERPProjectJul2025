@@ -12,7 +12,7 @@
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
     <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/kdstyles/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 
 
 </head>
@@ -37,27 +37,35 @@
 
     <div class="container">
         <br>
-        <p class="modal-title" style="font-size: 2rem;"><strong>Gestión de Usuarios</strong></p>
+        <p class="modal-title" style="font-size: 2rem;"><strong>Bitácora</strong></p>
     </div>
     <hr>
 
     <div class="container">
-        <form th:action="@{/bitacora}" method="get">
-            <label for="fecha">Filtrar por fecha:</label>
-            <input type="date" id="fecha" name="fecha" th:value="${filtroFecha}">
+        <form th:action="@{/bitacora}" method="get" class="d-flex flex-column flex-md-row gap-2 w-100"
+            style="align-items: center;">
+            <div class="cajas">
 
-            <label for="usuario">Filtrar por usuario:</label>
-            <input type="text" id="usuario" name="usuario" th:value="${filtroUsuario}" placeholder="Nombre de usuario"
-                style="background-color: #222; color: white; padding: 5px; border-radius: 3px; border: 1px solid #ccc;"
-                oninput="this.value = this.value.toUpperCase().trim()" autocomplete="off">
-
-            <label for="tren">Filtrar por tren:</label>
-            <input type="text" id="tren" name="tren" th:value="${filtroTren}" placeholder="Número de tren"
-                style="background-color: #222; color: white; padding: 5px; border-radius: 3px; border: 1px solid #ccc;"
-                oninput="this.value = this.value.toUpperCase().trim()" autocomplete="off">
-
-            <button type="submit">Filtrar</button>
-
+                <div class="caja-item">
+                    <label class="form-label" for="fecha">Filtrar por fecha:</label>
+                    <input class="form-control" type="date" id="fecha" name="fecha" th:value="${filtroFecha}">
+                </div>
+                <div class="caja-item">
+                    <label class="form-label" for="usuario">Filtrar por usuario:</label>
+                    <input class="form-control" type="text" id="usuario" name="usuario" th:value="${filtroUsuario}"
+                        placeholder="Nombre de usuario" oninput="this.value = this.value.toUpperCase().trim()"
+                        autocomplete="off">
+                </div>
+                <div class="caja-item">
+                    <label class="form-label" for="tren">Filtrar por tren:</label>
+                    <input class="form-control" type="text" id="tren" name="tren" th:value="${filtroTren}"
+                        placeholder="Número de tren" oninput="this.value = this.value.toUpperCase().trim()"
+                        autocomplete="off">
+                </div>
+                <div class="caja-item">
+                    <button class="btn btn-light" type="submit">Filtrar</button>
+                </div>
+            </div>
         </form>
     </div>
 

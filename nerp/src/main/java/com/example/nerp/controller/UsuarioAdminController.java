@@ -14,6 +14,7 @@ import com.example.nerp.model.Usuario;
 import com.example.nerp.repository.UsuarioRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/usuarios")
@@ -35,55 +36,54 @@ public class UsuarioAdminController {
         return "usuarios";
     }
 
-    
-@PostMapping("/actualizar")
-public String actualizarUsuario(@ModelAttribute Usuario usuario, HttpServletRequest request) {
-    Usuario sessionUser = (Usuario) request.getSession().getAttribute("usuario");
-    if (sessionUser == null || !"SUPERADMIN".equalsIgnoreCase(sessionUser.getRol())) {
-        return "redirect:/login";
-    }
+    @PostMapping("/actualizar")
+    public String actualizarUsuario(@ModelAttribute Usuario usuario, HttpServletRequest request) {
+        Usuario sessionUser = (Usuario) request.getSession().getAttribute("usuario");
+        if (sessionUser == null || !"SUPERADMIN".equalsIgnoreCase(sessionUser.getRol())) {
+            return "redirect:/login";
+        }
 
-    // Encriptar la contraseña antes de guardar
-    String hashed = new BCryptPasswordEncoder().encode(usuario.getPassword());
-    usuario.setPassword(hashed);
+        // Encriptar la contraseña antes de guardar
+        String hashed = new BCryptPasswordEncoder().encode(usuario.getPassword());
+        usuario.setPassword(hashed);
 
-    usuarioRepository.actualizar(usuario);
+        usuarioRepository.actualizar(usuario);
 
-
-
-    return "redirect:/usuarios";
-}
-
-@PostMapping("/eliminar")
-public String eliminarUsuario(@RequestParam("id") Long id, HttpServletRequest request) {
-    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-    if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
-        return "redirect:/login";
-    }
-
-    usuarioRepository.eliminarPorId(id.intValue()); // porque tu id es tipo int en la clase Usuario
-    return "redirect:/usuarios";
-}
-@GetMapping("/editar/{id}")
-public String mostrarFormularioEdicion(@PathVariable Long id, Model model, HttpServletRequest request) {
-    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-    if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
-        return "redirect:/login";
-    }
-
-    Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
-    if (usuarioExistente == null) {
         return "redirect:/usuarios";
     }
 
-    model.addAttribute("usuarioEditar", usuarioExistente);
-    return "editar-usuario"; // archivo Thymeleaf nuevo
-}
-@PostMapping("/crear")
+    @PostMapping("/eliminar")
+    public String eliminarUsuario(@RequestParam("id") Long id, HttpServletRequest request) {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
+            return "redirect:/login";
+        }
+
+        usuarioRepository.eliminarPorId(id.intValue()); // porque tu id es tipo int en la clase Usuario
+        return "redirect:/usuarios";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable Long id, Model model, HttpServletRequest request) {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
+            return "redirect:/login";
+        }
+
+        Usuario usuarioExistente = usuarioRepository.findById(id).orElse(null);
+        if (usuarioExistente == null) {
+            return "redirect:/usuarios";
+        }
+
+        model.addAttribute("usuarioEditar", usuarioExistente);
+        return "editar-usuario"; // archivo Thymeleaf nuevo
+    }
+
+    @PostMapping("/crear")
     public String crearNuevoUsuario(@RequestParam String username,
-                                    @RequestParam String password,
-                                    Model model,
-                                    HttpServletRequest request) {
+            @RequestParam String password,
+            Model model,
+            HttpServletRequest request) {
         Usuario actual = (Usuario) request.getSession().getAttribute("usuario");
         if (actual == null || !"SUPERADMIN".equalsIgnoreCase(actual.getRol())) {
             return "redirect:/login";
@@ -98,11 +98,20 @@ public String mostrarFormularioEdicion(@PathVariable Long id, Model model, HttpS
 
         Usuario nuevoUsuario = new Usuario();
         nuevoUsuario.setUsername(username);
-        nuevoUsuario.setPassword(password); // Se encripta dentro del método del repositorio
+        String hashed = new BCryptPasswordEncoder().encode(password);
+        nuevoUsuario.setPassword(hashed);
+
         usuarioRepository.insertarUsuarioNuevo(nuevoUsuario);
 
         model.addAttribute("mensaje", "Usuario creado exitosamente.");
         model.addAttribute("usuarios", usuarioRepository.findAll());
         return "usuarios";
     }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 🔥 Elimina todos los atributos de la sesión
+        return "redirect:/login"; // Redirige al login
+    }
+
 }

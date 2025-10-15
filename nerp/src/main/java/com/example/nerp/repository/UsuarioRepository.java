@@ -146,6 +146,16 @@ public void actualizarPassword(String username, String nuevaPasswordCodificada) 
     jdbcTemplate.update(sql, nuevaPasswordCodificada, username);
 }
 
+public List<String> obtenerModulosDeUsuario(String username) {
+    String sql = """
+        SELECT m.modulo
+        FROM usuario_modulo um
+        JOIN modulos m ON um.id_modulo = m.id_modulo
+        WHERE um.username = ?
+    """;
+    return jdbcTemplate.queryForList(sql, String.class, username);
+}
+
 
     
 }

@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.example.nerp.model.kdoffsite.PFCCASNK;
 import com.example.nerp.model.kdoffsite.PFYSTICHP;
-import com.example.nerp.model.kdoffsite.PFYSTIHP;
 import com.example.nerp.service.kdoffsite.PFCCASNKService;
 import com.example.nerp.service.kdoffsite.PFOASNDCPService;
 import com.example.nerp.service.kdoffsite.PFYSTICHPService;
@@ -30,8 +28,7 @@ public class KDOffsiteController {
             PFYSTICHPService pfystichpService,
             PFYSTIHPService pfystihpService,
             PFCCASNKService pfccasnkService,
-            PFOASNDCPService pfoasndcpService
-            ) {
+            PFOASNDCPService pfoasndcpService) {
         this.pfystichpService = pfystichpService;
         this.pfystihpService = pfystihpService;
         this.pfccasnkService = pfccasnkService;
@@ -40,7 +37,7 @@ public class KDOffsiteController {
 
     @GetMapping
     public String mostrarTablas(@RequestParam(value = "casem", required = false) String casem, Model model) {
-        System.out.println("case module: " +casem);
+        System.out.println("case module: " + casem);
         if (casem != null && !casem.isEmpty()) {
             List<PFYSTICHP> resultados = pfystichpService.buscarPorCase(casem);
             model.addAttribute("pfystichp", resultados);
@@ -79,9 +76,27 @@ public class KDOffsiteController {
     }
 
     @GetMapping("/tabla-pfoasndcp")
-    public String obtenerTablaPfoasndcp(@RequestParam String casem, Model model) {
-        model.addAttribute("pfoasndcp", pfoasndcpService.buscarPorPart(casem));
+    public String obtenerTablaPfoasndcp(@RequestParam String boxSerialNo,
+                                    @RequestParam String partNumber, Model model) {
+        model.addAttribute("pfoasndcp", pfoasndcpService.buscarPorBoxYPart(boxSerialNo, partNumber));
         return "fragments/kdoffsite/tabla-pfoasndcp :: tablaPfoasndcp";
     }
+
+    @PostMapping("/editar-pfystichp")
+    public String editarPFYSTICHP(@RequestParam("casem") String casem,
+                                @RequestParam("newTcloc") String newTcloc,
+                                @RequestParam("newTcsts") String newTcsts) {
+        pfystichpService.editarKD(casem, newTcloc, newTcsts);
+        return "redirect:/kdoffsite?casem=" + casem;
+    }
+
+    @PostMapping("/editar-pfystihp")
+    public String editarPFYSTIHP(@RequestParam("thasn") String thasn,
+                                @RequestParam("newThsts") String newThsts,
+                                @RequestParam("casem") String casem) {
+        pfystihpService.editarEstado(thasn, newThsts);
+        return "redirect:/kdoffsite?casem=" + casem;
+    }
+
 
 }

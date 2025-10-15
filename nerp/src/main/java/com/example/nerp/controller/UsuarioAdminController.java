@@ -28,7 +28,7 @@ public class UsuarioAdminController {
     @GetMapping
     public String listarUsuarios(Model model, HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
+        if (usuario == null || !"admin".equalsIgnoreCase(usuario.getRol())) {
             return "redirect:/login";
         }
 
@@ -36,26 +36,45 @@ public class UsuarioAdminController {
         return "usuarios";
     }
 
-    @PostMapping("/actualizar")
-    public String actualizarUsuario(@ModelAttribute Usuario usuario, HttpServletRequest request) {
-        Usuario sessionUser = (Usuario) request.getSession().getAttribute("usuario");
-        if (sessionUser == null || !"SUPERADMIN".equalsIgnoreCase(sessionUser.getRol())) {
+    @PostMapping("/editar")
+    public String actualizarUsuario(@RequestParam Long id,
+                                    @RequestParam String username,
+                                    @RequestParam(required = false) String password,
+                                    Model model,
+                                    HttpServletRequest request) {
+
+        Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuarioSesion == null || !"admin".equalsIgnoreCase(usuarioSesion.getRol())) {
             return "redirect:/login";
         }
 
-        // Encriptar la contraseña antes de guardar
-        String hashed = new BCryptPasswordEncoder().encode(usuario.getPassword());
-        usuario.setPassword(hashed);
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        if (usuario == null) {
+            model.addAttribute("error", "Usuario no encontrado");
+            model.addAttribute("usuarios", usuarioRepository.findAll());
+            return "usuarios";
+        }
+
+        usuario.setUsername(username);
+
+        if (password != null && !password.isEmpty()) {
+            // Actualizamos la contraseña solo si se ingresó algo
+            String hashed = new BCryptPasswordEncoder().encode(password);
+            usuario.setPassword(hashed);
+        }
 
         usuarioRepository.actualizar(usuario);
 
-        return "redirect:/usuarios";
+        model.addAttribute("mensaje", "Usuario actualizado correctamente");
+        model.addAttribute("usuarios", usuarioRepository.findAll());
+        return "usuarios";
     }
+
 
     @PostMapping("/eliminar")
     public String eliminarUsuario(@RequestParam("id") Long id, HttpServletRequest request) {
         Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
+        if (usuario == null || !"admin".equalsIgnoreCase(usuario.getRol())) {
             return "redirect:/login";
         }
 
@@ -65,8 +84,8 @@ public class UsuarioAdminController {
 
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEdicion(@PathVariable Long id, Model model, HttpServletRequest request) {
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
-        if (usuario == null || !"SUPERADMIN".equalsIgnoreCase(usuario.getRol())) {
+        Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+        if (usuarioSesion == null || !"admin".equalsIgnoreCase(usuarioSesion.getRol())) {
             return "redirect:/login";
         }
 
@@ -75,9 +94,11 @@ public class UsuarioAdminController {
             return "redirect:/usuarios";
         }
 
-        model.addAttribute("usuarioEditar", usuarioExistente);
-        return "editar-usuario"; // archivo Thymeleaf nuevo
+        model.addAttribute("usuarios", usuarioRepository.findAll()); // lista completa
+        model.addAttribute("usuarioEditar", usuarioExistente); // para llenar el modal
+        return "usuarios"; // volvemos a la misma página
     }
+
 
     @PostMapping("/crear")
     public String crearNuevoUsuario(@RequestParam String username,
@@ -85,7 +106,7 @@ public class UsuarioAdminController {
             Model model,
             HttpServletRequest request) {
         Usuario actual = (Usuario) request.getSession().getAttribute("usuario");
-        if (actual == null || !"SUPERADMIN".equalsIgnoreCase(actual.getRol())) {
+        if (actual == null || !"admin".equalsIgnoreCase(actual.getRol())) {
             return "redirect:/login";
         }
 

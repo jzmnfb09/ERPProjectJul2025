@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -25,11 +25,10 @@
                 <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCrearUser">
                     <i class="fa-solid fa-user-plus"></i> Crear Usuario
                 </button>
-                <a href="javascript:history.back()" class="btn btn-light">
+                <a th:href="@{/modulos}" class="btn btn-light">
                     <i class="fa-solid fa-arrow-left"></i> Regresar
                 </a>
             </div>
-            </form>
         </div>
     </nav>
 
@@ -79,16 +78,20 @@
                             <form th:action="@{/usuarios/eliminar}" method="post" class="form-eliminar">
                                 <input type="hidden" name="id" th:value="${usuario.id}" />
                                 <button type="button" class="btn btn-light btn-acciones btn-eliminar"
-                                    data-bs-toggle="modal" data-bs-target="#modalEliminar" th:data-id="${usuario.id}">
+                                    data-bs-toggle="modal" data-bs-target="#modalEditarUser" th:data-id="${usuario.id}"
+                                    th:data-username="${usuario.username}">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </button>
                             </form>
 
                             <form th:action="@{'/usuarios/editar/' + ${usuario.id}}" method="get">
-                                <button type="submit" class="btn btn-light btn-acciones">
+                                <button type="button" class="btn btn-light btn-acciones" data-bs-toggle="modal"
+                                    data-bs-target="#modalEditarUser" th:data-id="${usuario.id}"
+                                    th:data-username="${usuario.username}">
                                     <i class="fas fa-edit"></i> Editar
                                 </button>
                             </form>
+
                         </div>
                     </td>
                 </tr>
@@ -151,6 +154,45 @@
         </div>
     </div>
 
+    <!-- Modal para editar usuario -->
+    <div class="modal fade" id="modalEditarUser" tabindex="-1" aria-labelledby="modalEditarUserLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditarUserLabel"><strong>Editar Usuario</strong></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form th:action="@{/usuarios/editar}" method="post" id="formEditarUsuario">
+                        <input type="hidden" name="id" id="editarUserId" />
+
+                        <div class="mb-3">
+                            <label for="editarUsername" class="form-label">Usuario:</label>
+                            <input type="text" name="username" class="form-control" id="editarUsername"
+                                autocomplete="off" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editarPassword" class="form-label">Contraseña:</label>
+                            <input type="password" name="password" class="form-control" id="editarPassword"
+                                autocomplete="off" />
+                            <small class="text-muted">Dejar vacío si no deseas cambiar la contraseña</small>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger">Guardar Cambios</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -179,6 +221,36 @@
             });
         });
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalEditar = document.getElementById('modalEditarUser');
+
+            modalEditar.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+
+                const userId = button.getAttribute('data-id');
+                const username = button.getAttribute('data-username');
+                const modulos = button.getAttribute('data-modulos'); // ej: "1,3,5"
+
+                document.getElementById('editarUserId').value = userId;
+                document.getElementById('editarUsername').value = username;
+
+                // Limpiar todos los checkboxes
+                document.querySelectorAll('#modalEditarUser .modCheckbox').forEach(cb => cb.checked = false);
+
+                // Marcar los módulos del usuario
+                if (modulos) {
+                    const ids = modulos.split(',');
+                    ids.forEach(id => {
+                        const checkbox = document.querySelector('#modalEditarUser .modCheckbox[value="' + id + '"]');
+                        if (checkbox) checkbox.checked = true;
+                    });
+                }
+            });
+        });
+    </script>
+
 
 
     <script>

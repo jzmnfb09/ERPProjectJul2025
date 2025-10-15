@@ -10,6 +10,8 @@ public class PFCCASNK {
     private String confirm_del_qty;
     private String pc_number;
     private String inventory_category;
+
+    
     public String getSupplier_no() {
         return supplier_no;
     }

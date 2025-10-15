@@ -1,5 +1,7 @@
 package com.example.nerp.controller;
 
+import java.util.List;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,6 +56,13 @@ public String procesarLogin(@RequestParam String username,
 
             System.out.println("🧪 Rol del usuario logueado: '" + usuario.getRol() + "'");
 
+            // Cargar solo los módulos que el usuario tiene permiso
+            List<String> modulos = usuarioRepository.obtenerModulosDeUsuario(usuario.getUsername());
+            session.setAttribute("modulos", modulos);
+
+            System.out.println("Módulos del usuario: " + modulos);
+
+
             if ("SUPERADMI".equalsIgnoreCase(usuario.getRol())) {
                 return "redirect:/usuarios";
             } else {
@@ -104,6 +113,7 @@ public String procesarLogin(@RequestParam String username,
 
         return "forgot-password";
     }
+    
     
 }   
  

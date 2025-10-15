@@ -39,5 +39,13 @@ public class PFYSTIHPService {
             return pfystihp;
         });
     }
+
+    public void editarEstado(String thasn, String newThsts) {
+        String sql = "UPDATE RLMPRDBASD.PFYSTIHP p " +
+                        "SET p.THSTS = ? " +
+                        "WHERE p.THASN = ? ";
+        jdbc.update(sql, newThsts, thasn);
+    }
+
     
 }

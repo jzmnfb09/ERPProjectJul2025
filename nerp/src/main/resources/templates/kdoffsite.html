@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mantenimiento a Case Module</title>
-    <link rel="stylesheet" th:href="@{/css/kdstyles/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
     <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
@@ -43,8 +43,7 @@
                 class="d-flex flex-column flex-md-row gap-2 w-100">
                 <!-- Input flotante -->
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="casem" name="casem" th:value="${casem}"
-                        placeholder="Escribe un case module" style="text-transform: uppercase;">
+                    <input type="text" class="form-control" id="casem" name="casem" th:value="${casem}" style="text-transform: uppercase;">
                     <label for="casem">Case Module</label>
                 </div>
 
@@ -53,6 +52,7 @@
                     <button type="submit" class="btn btn-light">
                         <i class="fa-solid fa-search"></i> Buscar
                     </button>
+                </div>
             </form>
         </div>
         <!-- Botones secundarios -->
@@ -167,7 +167,7 @@
                     No se encontraron resultados para el Case Module ingresado.
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -182,18 +182,18 @@
                     <h5 class="modal-title" id="modalEditarLabel"><strong> Editar KD </strong></h5>
                 </div>
                 <div class="modal-body">
-                    <form id="form-editar">
+                    <form id="form-editar" th:action="@{/kdoffsite/editar-pfystichp}" method="post">
                         <div class="mb-3">
                             <label for="inputCaseModule" class="form-label">Case Module:</label>
-                            <input type="text" class="form-control" id="inputCaseModule" disabled readonly>
+                            <input type="text" class="form-control" id="inputCaseModule" name="casem" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="inputCaseLocation" class="form-label">Ubicación:</label>
-                            <input type="text" class="form-control" id="inputCaseLocation">
+                            <input type="text" class="form-control" id="inputCaseLocation" name="newTcloc">
                         </div>
                         <div class="mb-3">
                             <label for="inputCaseStatus" class="form-label">Estado:</label>
-                            <select class="form-select" id="inputCaseStatus">
+                            <select class="form-select" id="inputCaseStatus" name="newTcsts">
                                 <option value=" ">---</option>
                                 <option value="R">R</option>
                                 <option value="P">P</option>
@@ -202,11 +202,11 @@
                             </select>
                         </div>
 
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" id="btnGuardarCambios">Guardar cambios</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btnGuardarCambios">Guardar cambios</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -220,24 +220,24 @@
                     <h5 class="modal-title" id="modalEditarASNLabel"><strong> Cambio de estado </strong></h5>
                 </div>
                 <div class="modal-body">
-                    <form id="form-editarASN">
+                    <form id="form-editarASN" th:action="@{/kdoffsite/editar-pfystihp}" method="post">
                         <div class="mb-3">
                             <label for="inputASN" class="form-label">ASN:</label>
-                            <input type="text" class="form-control" id="inputASN" disabled readonly>
+                            <input type="text" class="form-control" id="inputASN" name="thasn" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="inputEstado" class="form-label">Estado:</label>
-                            <select class="form-select" id="inputEstado">
+                            <select class="form-select" id="inputEstado" name="newThsts">
                                 <option value="2">2 — Activar</option>
                                 <option value="6">6 — Bloquear</option>
                             </select>
                         </div>
-
+                        <input type="hidden" id="hiddenCasemASN" name="casem">
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" id="btnGuardarCambios">Guardar cambios</button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" id="btnGuardarCambios">Guardar cambios</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -342,28 +342,25 @@
 
 
     <script>
-        function cargarPfoasndcp(fila) {
-            if (!casemActual) {
-                console.warn("⚠️ No se ha seleccionado un Case Module aún.");
+        function cargarDetallePFOASNDCP(fila) {
+            const boxSerialNo = fila.getAttribute('data-boxserial');
+            const partNumber = fila.getAttribute('data-part');
+
+            if (!boxSerialNo || !partNumber) {
+                console.warn("❗ No se encontró 'boxSerialNo' o 'partNumber'. Petición cancelada.");
                 return;
             }
 
-            //Cargar tabla PFOASNDCP
-            fetch(`kdoffsite/tabla-pfoasndcp?casem=${encodeURIComponent(casemActual)}`)
-                .then(resp => {
-                    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                    return resp.text();
-                })
+            fetch(`/kdoffsite/tabla-pfoasndcp?boxSerialNo=${encodeURIComponent(boxSerialNo)}&partNumber=${encodeURIComponent(partNumber)}`)
+                .then(response => response.text())
                 .then(html => {
-                    document.getElementById("tabla-pfoasndcp").innerHTML = html;
-                    console.log(`Tabla PFOASNDCP actualizada para case: ${casemActual}`);
+                    document.querySelector('#tabla-pfoasndcp').innerHTML = html;
                 })
-                .catch(err => {
-                    console.error("Error al cargar la tabla PFOASNDCP:", err);
-                });
+                .catch(error => console.error('Error al cargar la tabla PFOASNDCP:', error));
         }
 
     </script>
+
 
 
     <!---------------------------------------------
@@ -422,6 +419,8 @@
                 document.getElementById("inputASN").value = celdas[2]?.textContent.trim() || "";
                 document.getElementById("inputEstado").value = celdas[9]?.textContent.trim() || "";
 
+                document.getElementById("hiddenCasemASN").value = casemActual;
+
                 const modal = new bootstrap.Modal(document.getElementById('modalEditarASN'));
                 modal.show();
             });
@@ -469,7 +468,6 @@
             });
         });
     </script>
-
 
 </body>
 

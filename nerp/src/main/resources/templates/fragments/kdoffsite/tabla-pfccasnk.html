@@ -13,7 +13,8 @@
             </tr>
         </thead>
         <tbody class="table-dark">
-            <tr th:each="r : ${pfccasnk}" onclick="cargarPfoasndcp(this)">
+            <tr th:each="r : ${pfccasnk}" th:attr="data-boxserial=${r.box_serial_no}, data-part=${r.part_number}"
+                onclick="cargarDetallePFOASNDCP(this)">
                 <td th:text="${r.supplier_no}"></td>
                 <td th:text="${r.asn_number}"></td>
                 <td th:text="${r.box_serial_no}"></td>

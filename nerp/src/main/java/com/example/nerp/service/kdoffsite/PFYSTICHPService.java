@@ -61,6 +61,18 @@ public class PFYSTICHPService {
         return jdbc.update(sql.toString(), params.toArray());
     }
 
+    public void darBaja(String casem) {
+        
+        String sql = "UPDATE RLMPRDBASD.PFYSTICHP SET TCSTS = 'DC' WHERE RLMPRDBASD.PFYSTICHP.TCCAS  = ?";
+        jdbc.update(sql, casem);
 
+    }
+
+    public void eliminarCase(String casem) {
+        
+        String sql = "DELETE FROM RLMPRDBASD.PFYSTICHP p WHERE p.TCCAS = ?";
+        jdbc.update(sql, casem);
+
+    }
 
 }

@@ -45,18 +45,17 @@
             </a>
             <form id="formFiltro" th:action="@{/gestionTrenes}" method="post"
                 class="d-flex flex-column flex-md-row gap-2 w-100" style="align-items: center;">
-                <select class="form-select" style="width: 100px; height: 40px;" name="tipoFiltro" id="tipoFiltro"
+                <select class="form-select" style="width: 100px; height: 38px;" name="tipoFiltro" id="tipoFiltro"
                     required>
                     <option value="tren">Tren</option>
                     <option value="batch">Batch</option>
                 </select>
-                <!-- Input flotante -->
+                
                 <div class="d-flex align-items-center gap-2">
                     <div>
-                        <input type="text" class="form-control" id="campoFiltro" name="filtro" th:value="${filtro}"
+                        <input type="text" class="navbarInput" id="campoFiltro" name="filtro" th:value="${filtro}"
                             required autocomplete="off" style="text-transform: uppercase;"
-                            placeholder="Tren o Batch"
-                            oninput="this.value = this.value.toUpperCase().trim()">
+                            placeholder="Tren o Batch" oninput="this.value = this.value.toUpperCase().trim()">
                     </div>
 
                     <button type="submit" class="btn btn-light"><i class="fa-solid fa-search"></i>
@@ -466,7 +465,7 @@
                     <h5 class="modal-title" id="noResultsModalLabel"><strong> Sin resultados </strong></h5>
                 </div>
                 <div class="modal-body" style="color: #fff;">
-                    No se encontraron resultados para <strong th:text="${filtro}">el tren o batch ingresado</strong>.
+                    No se encontraron resultados para el tren o batch ingresado: <strong th:text="${filtro}"></strong>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

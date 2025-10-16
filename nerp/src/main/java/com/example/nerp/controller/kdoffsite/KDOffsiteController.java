@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.nerp.model.kdoffsite.PFYSTICHP;
 import com.example.nerp.service.kdoffsite.PFCCASNKService;
@@ -76,27 +77,54 @@ public class KDOffsiteController {
     }
 
     @GetMapping("/tabla-pfoasndcp")
-    public String obtenerTablaPfoasndcp(@RequestParam String boxSerialNo,
-                                    @RequestParam String partNumber, Model model) {
+    public String obtenerTablaPfoasndcp(
+            @RequestParam(required = false) String boxSerialNo,
+            @RequestParam(required = false) String partNumber,
+            Model model) {
+
+        if (boxSerialNo == null || partNumber == null || boxSerialNo.isBlank() || partNumber.isBlank()) {
+            // Si no hay datos aún (por ejemplo, al recargar la página)
+            model.addAttribute("pfoasndcp", List.of());
+            return "fragments/kdoffsite/tabla-pfoasndcp :: tablaPfoasndcp";
+        }
+
         model.addAttribute("pfoasndcp", pfoasndcpService.buscarPorBoxYPart(boxSerialNo, partNumber));
         return "fragments/kdoffsite/tabla-pfoasndcp :: tablaPfoasndcp";
     }
 
     @PostMapping("/editar-pfystichp")
     public String editarPFYSTICHP(@RequestParam("casem") String casem,
-                                @RequestParam("newTcloc") String newTcloc,
-                                @RequestParam("newTcsts") String newTcsts) {
+            @RequestParam("newTcloc") String newTcloc,
+            @RequestParam("newTcsts") String newTcsts) {
         pfystichpService.editarKD(casem, newTcloc, newTcsts);
         return "redirect:/kdoffsite?casem=" + casem;
     }
 
     @PostMapping("/editar-pfystihp")
     public String editarPFYSTIHP(@RequestParam("thasn") String thasn,
-                                @RequestParam("newThsts") String newThsts,
-                                @RequestParam("casem") String casem) {
+            @RequestParam("newThsts") String newThsts,
+            @RequestParam("casem") String casem) {
         pfystihpService.editarEstado(thasn, newThsts);
         return "redirect:/kdoffsite?casem=" + casem;
     }
 
+    @PostMapping("/baja")
+    @ResponseBody
+    public String ejecutarBaja(@RequestParam("casem") String casem) {
+        try {
+            pfystichpService.darBaja(casem);
+            return "Case Module: " + casem + " dado de baja";
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return "Error al realizar la baja del Case Module: " + casem;
+        }
+    }
+
+    @PostMapping("/eliminar")
+    public String eliminarCase(@RequestParam("casem") String casem) {
+        pfystichpService.eliminarCase(casem);
+        return "redirect:/kdoffsite";
+    }
 
 }

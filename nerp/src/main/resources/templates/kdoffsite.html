@@ -42,9 +42,10 @@
             <form th:action="@{/kdoffsite}" method="post" id="caseForm"
                 class="d-flex flex-column flex-md-row gap-2 w-100">
                 <!-- Input flotante -->
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="casem" name="casem" th:value="${casem}" style="text-transform: uppercase;">
-                    <label for="casem">Case Module</label>
+                <div>
+                    <input type="text" class="navbarInput" id="casem" name="casem" th:value="${casem}"
+                        placeholder="Case Module" style="text-transform: uppercase;"
+                        oninput="this.value = this.value.toUpperCase().trim()">
                 </div>
 
                 <!-- Botones principales -->
@@ -63,13 +64,14 @@
             <button type="button" class="btn btn-light" onclick="actualizarTablasConFiltro()">
                 <i class="fa-solid fa-arrows-rotate"></i> Actualizar
             </button>
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#">
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalBaja">
                 <i class="fa-solid fa-ban"></i> Baja
             </button>
             <button type="button" class="btn btn-light" id="editarBtnKD" title="Editar">
                 <i class="fa-solid fa-pen-to-square"></i> Editar
             </button>
-            <button type="button" class="btn btn-light">
+            <button type="button" class="btn btn-eliminar" data-bs-toggle="modal" data-bs-target="#modalEliminar"
+                th:data-id="${casem}">
                 <i class="fa-solid fa-trash"></i> Eliminar
             </button>
             <a th:href="@{/modulos}" class="btn btn-light">
@@ -89,6 +91,24 @@
             <div class="overlay-contenido">
                 <div class="spinner"></div>
                 <p>Cargando...</p>
+            </div>
+        </div>
+
+        <!-- Card de Error -->
+        <div th:if="${error}" class="card bg-dark border-danger mt-3" style="max-width: 500px; margin: auto;"
+            id="card-error">
+            <div class="card-body text-danger">
+                <h5 class="card-title">Error</h5>
+                <p class="card-text" th:text="${error}"></p>
+            </div>
+        </div>
+
+        <!-- Card de Éxito -->
+        <div th:if="${mensaje}" class="card bg-dark border-success mt-3" style="max-width: 500px; margin: auto;"
+            id="card-mensaje">
+            <div class="card-body text-success">
+                <h5 class="card-title">Éxito</h5>
+                <p class="card-text" th:text="${mensaje}"></p>
             </div>
         </div>
 
@@ -164,7 +184,7 @@
                     <h5 class="modal-title" id="noResultsModalLabel"><strong> Sin resultados </strong></h5>
                 </div>
                 <div class="modal-body" style="color: #fff;">
-                    No se encontraron resultados para el Case Module ingresado.
+                    No se encontraron resultados para el Case Module ingresado: <strong th:text="${casem}"></strong>.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -243,6 +263,48 @@
         </div>
     </div>
 
+    <!-- Modal Confirmar Baja -->
+    <div class="modal fade" id="modalBaja" tabindex="-1" aria-labelledby="modalBajaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title" id="modalBajaLabel">Confirmar baja</h5>
+                </div>
+                <div class="modal-body">
+                    <p>¿Deseas dar de baja el <strong>Case Module</strong> ingresado?</p>
+                    <input type="text" class="form-control" id="casemBaja" name="casem" readonly>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-red" id="btnConfirmarBaja">Confirmar Baja</button>
+                    <button type="button" class="btn-red" data-bs-dismiss="modal">Cancelar</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Confirmación Eliminar -->
+    <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white border-danger">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="modalEliminarLabel">Confirmar Eliminación</h5>
+                </div>
+                <div class="modal-body">
+                    <p>¿Eliminar el case module <strong th:text="${casem}"></strong>?</p>
+                </div>
+                <div class="modal-footer">
+                    <form id="formConfirmarEliminar" th:action="@{/kdoffsite/eliminar}" method="post">
+                        <input type="hidden" name="casem" id="casem" />
+                        <button type="submit" class="btn-red">Eliminar</button>
+                        <button type="button" class="btn-red" data-bs-dismiss="modal">Cancelar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-------------------------------------------------------
                     ACCIONES PARA LOS BOTONES DE CONTROLES
@@ -271,8 +333,7 @@
             const tablas = [
                 { id: "tabla-pfystichp", url: "kdoffsite/tabla-pfystichp" },
                 { id: "tabla-pfystihp", url: "kdoffsite/tabla-pfystihp" },
-                { id: "tabla-pfccasnk", url: "kdoffsite/tabla-pfccasnk" },
-                { id: "tabla-pfoasndcp", url: "kdoffsite/tabla-pfoasndcp" }
+                { id: "tabla-pfccasnk", url: "kdoffsite/tabla-pfccasnk" }
             ];
 
             tablas.forEach(tabla => {
@@ -280,7 +341,7 @@
                     .then(resp => resp.text())
                     .then(html => {
                         document.getElementById(tabla.id).innerHTML = html;
-                        console.log(`✅ Tabla "${tabla.id}" actualizada con éxito.`);
+                        console.log(`Tabla "${tabla.id}" actualizada con éxito.`);
                     })
                     .catch(err => {
                         console.error(`Error al actualizar ${tabla.id}:`, err);
@@ -347,7 +408,7 @@
             const partNumber = fila.getAttribute('data-part');
 
             if (!boxSerialNo || !partNumber) {
-                console.warn("❗ No se encontró 'boxSerialNo' o 'partNumber'. Petición cancelada.");
+                console.warn("No se encontró 'boxSerialNo' o 'partNumber'. Petición cancelada.");
                 return;
             }
 
@@ -452,7 +513,6 @@
         });
     </script>
 
-
     <!-- Script para Overlay cargando -->
     <script>
         function mostrarOverlay() {
@@ -468,6 +528,77 @@
             });
         });
     </script>
+
+
+    <!-- Script para baja -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const modalBaja = document.getElementById("modalBaja");
+            const inputCasem = document.getElementById("casem");
+            const inputCasemBaja = document.getElementById("casemBaja");
+            const btnConfirmarBaja = document.getElementById("btnConfirmarBaja");
+
+            // Al abrir el modal, llenar el campo con el Case Module actual
+            modalBaja.addEventListener("show.bs.modal", () => {
+                inputCasemBaja.value = inputCasem.value.trim();
+            });
+
+            // Cuando el usuario confirma la baja
+            btnConfirmarBaja.addEventListener("click", async () => {
+                const casem = inputCasemBaja.value.trim();
+                if (!casem) {
+                    alert("Por favor ingresa un Case Module antes de continuar.");
+                    return;
+                }
+
+                try {
+                    mostrarOverlay(); // Muestra el overlay “Cargando...”
+
+                    // 🔹 Llamada al endpoint que ejecuta la baja
+                    const response = await fetch(`/kdoffsite/baja?casem=${encodeURIComponent(casem)}`, {
+                        method: "POST"
+                    });
+
+                    if (!response.ok) throw new Error(`Error HTTP ${response.status}`);
+
+                    // 🔹 Esperar el mensaje del servidor
+                    const result = await response.text();
+                    console.log("Resultado de la baja:", result);
+
+                    // 🔹 Cerrar modal
+                    const modal = bootstrap.Modal.getInstance(modalBaja);
+                    modal.hide();
+
+                    // 🔹 Mostrar mensaje de confirmación
+                    alert("✅ Baja ejecutada correctamente.");
+
+                    // 🔹 Actualizar las tablas
+                    actualizarTablasConFiltro();
+                } catch (err) {
+                    console.error("Error al ejecutar la baja:", err);
+                    alert("Ocurrió un error al realizar la baja.");
+                } finally {
+                    document.getElementById('overlay-cargando').classList.add('d-none');
+                }
+            });
+        });
+    </script>
+
+    <!-- Script para eliminar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const modalEliminar = document.getElementById("modalEliminar");
+            const inputHidden = modalEliminar.querySelector("input[name='casem']");
+
+            modalEliminar.addEventListener("show.bs.modal", function (event) {
+                const button = event.relatedTarget; // Botón que abrió el modal
+                const casem = button.getAttribute("data-id"); // Obtener el case module
+                inputHidden.value = casem; // Pasarlo al input hidden
+            });
+        });
+    </script>
+
+
 
 </body>
 

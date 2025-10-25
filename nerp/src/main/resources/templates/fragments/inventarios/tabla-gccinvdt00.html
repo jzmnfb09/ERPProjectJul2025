@@ -18,32 +18,32 @@
         <!-- Fila 3: Ubicación -->
         <div class="grid-label">Ubicación</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvlbcd}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvlbcd}" /></div>
+        <div><input type="text" class="grid-input" name="finvlbcd" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvlbcd}" /></div>
 
         <!-- Fila 4: Status -->
         <div class="grid-label">Status</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvlstc}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvlstc}" /></div>
+        <div><input type="text" class="grid-input" name="finvlstc" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvlstc}" /></div>
 
         <!-- Fila 5: Cantidad -->
         <div class="grid-label">Cantidad</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvavlq}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvavlq}" /></div>
+        <div><input type="text" class="grid-input" name="finvavlq" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvavlq}" /></div>
 
         <!-- Fila 6: Shipped Qty -->
         <div class="grid-label">Shipped Qty</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvshpq}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvshpq}" /></div>
+        <div><input type="text" class="grid-input" name="finvshpq" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvshpq}" /></div>
 
         <!-- Fila 7: MEG Category -->
         <div class="grid-label">MEG Category</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvincg}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvincg}" /></div>
+        <div><input type="text" class="grid-input" name="finvincg" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvincg}" /></div>
 
         <!-- Fila 8: SML/Repack -->
         <div class="grid-label">SML/Repack</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvslrc}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvslrc}" /></div>
+        <div><input type="text" class="grid-input" name="finvslrc" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvslrc}" /></div>
 
         <!-- Fila 9: Supplier -->
         <div class="grid-label">Supplier</div>
@@ -53,17 +53,17 @@
         <!-- Fila 10: Content Tag ID -->
         <div class="grid-label">Content Tag ID</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvcidñ}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvcidñ}" /></div>
+        <div><input type="text" class="grid-input" name="finvcidñ" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvcidñ}" /></div>
 
         <!-- Fila 11: Check Sheet -->
         <div class="grid-label">Check Sheet</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvchsñ}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvchsñ}" /></div>
+        <div><input type="text" class="grid-input" name="finvchsñ" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvchsñ}" /></div>
 
         <!-- Fila 12: Demand # -->
         <div class="grid-label">Demand #</div>
         <div class="grid-value" th:text="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvfch1}">—</div>
-        <div><input type="text" class="grid-input" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvfch1}" /></div>
+        <div><input type="text" class="grid-input" name="finvfch1" th:value="${#lists.isEmpty(gccinvdt00) ? '' : gccinvdt00[0].finvfch1}" /></div>
     </div>
     
 </div>

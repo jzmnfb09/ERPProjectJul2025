@@ -50,12 +50,12 @@
                     <option value="tren">Tren</option>
                     <option value="batch">Batch</option>
                 </select>
-                
+
                 <div class="d-flex align-items-center gap-2">
                     <div>
                         <input type="text" class="navbarInput" id="campoFiltro" name="filtro" th:value="${filtro}"
-                            required autocomplete="off" style="text-transform: uppercase;"
-                            placeholder="Tren o Batch" oninput="this.value = this.value.toUpperCase().trim()">
+                            required autocomplete="off" style="text-transform: uppercase;" placeholder="Tren o Batch"
+                            oninput="this.value = this.value.toUpperCase().trim()">
                     </div>
 
                     <button type="submit" class="btn btn-light"><i class="fa-solid fa-search"></i>
@@ -79,9 +79,8 @@
                 <i class="fas fa-book"></i> Bitácora
             </a>
 
-            <a th:href="@{/modulos}" class="btn btn-light">
-                <i class="fa-solid fa-door-open"></i> Salir
-            </a>
+            <a th:href="@{/modulos}" class="btn btn-light" onclick="cerrarVentana(); return false;">
+                <i class="fa-solid fa-arrow-left"></i> Regresar </a>
 
         </div>
     </nav>
@@ -591,6 +590,20 @@
         document.addEventListener("DOMContentLoaded", () => {
             document.body.classList.add("table-loaded");
         });
+    </script>
+
+    <script>
+        function cerrarVentana() {
+            // Intenta cerrar la pestaña
+            window.close();
+
+            // Si no se cierra, redirige (por ejemplo, al menú)
+            setTimeout(() => {
+                if (!window.closed) {
+                    window.location.href = '/modulos';
+                }
+            }, 200);
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -2,6 +2,7 @@ package com.example.nerp.controller.kdoffsite;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.nerp.model.kdoffsite.PFYSTICHP;
+import com.example.nerp.service.kdoffsite.BitacoraKDService;
 import com.example.nerp.service.kdoffsite.PFCCASNKService;
 import com.example.nerp.service.kdoffsite.PFOASNDCPService;
 import com.example.nerp.service.kdoffsite.PFYSTICHPService;
 import com.example.nerp.service.kdoffsite.PFYSTIHPService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/kdoffsite")
@@ -24,16 +28,19 @@ public class KDOffsiteController {
     private final PFYSTIHPService pfystihpService;
     private final PFCCASNKService pfccasnkService;
     private final PFOASNDCPService pfoasndcpService;
+    private final BitacoraKDService bitacoraKDService;
 
     public KDOffsiteController(
             PFYSTICHPService pfystichpService,
             PFYSTIHPService pfystihpService,
             PFCCASNKService pfccasnkService,
-            PFOASNDCPService pfoasndcpService) {
+            PFOASNDCPService pfoasndcpService,
+            BitacoraKDService bitacoraKDService) {
         this.pfystichpService = pfystichpService;
         this.pfystihpService = pfystihpService;
         this.pfccasnkService = pfccasnkService;
         this.pfoasndcpService = pfoasndcpService;
+        this.bitacoraKDService = bitacoraKDService;
     }
 
     @GetMapping
@@ -95,24 +102,45 @@ public class KDOffsiteController {
     @PostMapping("/editar-pfystichp")
     public String editarPFYSTICHP(@RequestParam("casem") String casem,
             @RequestParam("newTcloc") String newTcloc,
-            @RequestParam("newTcsts") String newTcsts) {
+            @RequestParam("newTcsts") String newTcsts,
+            HttpSession session) {
+
+        // Actualizar Estado Case
         pfystichpService.editarKD(casem, newTcloc, newTcsts);
+
+        // Registrar en bitácora
+        String usuario = (String) session.getAttribute("usuario"); // Ajusta según tu sesión
+        String detalle = "Se editó la ubicación a: " + newTcloc + " y estado a: " + newTcsts;
+        bitacoraKDService.registrar(casem, usuario, "EDITAR", detalle);
+
         return "redirect:/kdoffsite?casem=" + casem;
     }
 
     @PostMapping("/editar-pfystihp")
     public String editarPFYSTIHP(@RequestParam("thasn") String thasn,
             @RequestParam("newThsts") String newThsts,
-            @RequestParam("casem") String casem) {
+            @RequestParam("casem") String casem,
+            HttpSession session) {
         pfystihpService.editarEstado(thasn, newThsts);
+
+        // Registrar en bitácora
+        String usuario = (String) session.getAttribute("usuario");
+        String detalle = "Se cambió el estado de ASN " + thasn + " a: " + newThsts;
+        bitacoraKDService.registrar(casem, usuario, "CAMBIO_ESTADO", detalle);
+
         return "redirect:/kdoffsite?casem=" + casem;
     }
 
     @PostMapping("/baja")
     @ResponseBody
-    public String ejecutarBaja(@RequestParam("casem") String casem) {
+    public String ejecutarBaja(@RequestParam("casem") String casem,
+                                HttpSession session) {
         try {
             pfystichpService.darBaja(casem);
+
+            String usuario = (String) session.getAttribute("usuario");
+            bitacoraKDService.registrar(casem, usuario, "BAJA", "Case Module dado de baja");
+
             return "Case Module: " + casem + " dado de baja";
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,9 +150,21 @@ public class KDOffsiteController {
     }
 
     @PostMapping("/eliminar")
-    public String eliminarCase(@RequestParam("casem") String casem) {
+    public String eliminarCase(@RequestParam("casem") String casem,
+                                HttpSession session) {
         pfystichpService.eliminarCase(casem);
+
+        String usuario = (String) session.getAttribute("usuario");
+        bitacoraKDService.registrar(casem, usuario, "ELIMINAR", "Case Module eliminado");
+
         return "redirect:/kdoffsite";
+    }
+
+    @GetMapping("/estado-case")
+    @ResponseBody
+    public String obtenerEstadoCase(@RequestParam("casem") String casem) {
+        String estado = pfystichpService.obtenerEstado(casem);
+        return (estado != null) ? estado : "";
     }
 
 }

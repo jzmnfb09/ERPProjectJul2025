@@ -56,7 +56,7 @@ ul {
     color: #000;
 }
 
-.btn-red{
+.btn-red {
     background-color: #a00;
     color: #fff;
     border: none;
@@ -74,7 +74,7 @@ ul {
     cursor: pointer;
 }
 
-.btn-black{
+.btn-black {
     background-color: #000;
     color: #fff;
     border: none;
@@ -137,7 +137,7 @@ ul {
     line-height: 1.8;
 }
 
-.table th{
+.table th {
     background-color: #181818 !important;
 }
 
@@ -578,6 +578,7 @@ table input {
     border-color: #a00;
     box-shadow: 0 0 0 1px #a00;
 }
+
 /*
 .lpn-input {
     background-color: #181818;
@@ -886,7 +887,8 @@ button:hover {
     grid-template-columns: 200px 200px 250px;
     grid-auto-rows: auto;
     gap: 1px;
-    background-color: #1e1e1e; /* Fondo general */
+    background-color: #1e1e1e;
+    /* Fondo general */
     max-width: 675px;
     margin: auto;
     padding: 10px;
@@ -932,7 +934,7 @@ button:hover {
     box-shadow: 0 0 0 1px #a00;
 }
 
-.navbarInput{
+.navbarInput {
     border-radius: 4px;
     border: 1px solid #555;
     outline: none;
@@ -940,7 +942,7 @@ button:hover {
     background-color: #fff;
     border-radius: 4px;
     color: #000;
-    padding: 6.5px 20px;
+    padding: 6.5px 8px;
     width: 150px;
     text-align: left;
 }
@@ -952,5 +954,113 @@ button:hover {
 }
 
 .navbarInput::placeholder {
-  text-transform: none;
+    text-transform: none;
 }
+
+/* ====== Estilos bitácora ====== */
+.bit-box {
+    display: flex;
+    justify-content: center;  /* Centra el formulario horizontalmente */
+    align-items: center;      /* Centra verticalmente si hay espacio */
+    background-color: #242424;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    width: 100%;
+}
+
+/* ===== Formulario ===== */
+.bit-box form {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Centra los elementos internamente */
+    flex-wrap: wrap;          /* Permite que los elementos bajen si no caben */
+    gap: 0.8rem;              /* Espaciado entre inputs/labels */
+}
+
+/* ===== Labels ===== */
+.bit-label {
+    font-weight: bold;
+    color: #a00;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* ===== Inputs ===== */
+.bit-input {
+    background-color: #181818;
+    border: 1px solid #555;
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px 8px;
+    width: 180px;
+    height: 28px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+
+.bit-input:focus {
+    outline: none;
+    border-color: #a00;
+    box-shadow: 0 0 0 1px #a00;
+}
+
+/* ===== Tabla ===== */
+
+/* Contenedor de la tabla */
+.bit-container {
+    padding: 2rem;  /* Agrega espacio alrededor de la tabla */
+    margin-top: 1.5rem; /* Espaciado arriba */
+    max-width: 90%;  /* Limita el ancho máximo */
+    margin: 0 auto;  /* Centra la tabla */
+}
+
+/* Estilo para la tabla */
+.bit-table {
+    width: 100%;   /* Asegura que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse; /* Hace que las celdas no tengan separación */
+    margin-top: 1rem;  /* Espaciado arriba de la tabla */
+
+    border-spacing: 0;
+    border-radius: 0.75rem;
+    background-color: #242424;
+    color: white;
+    font-family: inherit; /* usa la fuente general de la página */
+    font-size: 0.85rem;
+    width: 100%; /* o auto si quieres que la tabla se ajuste al contenido */
+}
+
+.bit-table th,
+.bit-table td{
+    border: 1px solid #444;
+    background-color: #242424;
+    color: #fff;
+    padding: 3px 6px;
+}
+
+/* Encabezado de la tabla */
+.bit-table-dark th {
+    padding: 12px 15px;  /* Aumenta el espaciado dentro de las celdas */
+    background-color: #181818 !important;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-align: center; /* Centra el texto */
+}
+
+/* Celdas de la tabla */
+.bit-table-dark td {
+    padding: 10px 15px;  /* Aumenta el espaciado en las celdas */
+    text-align: center;  /* Centra el contenido de las celdas */
+    border: 1px solid #444;  /* Agrega borde alrededor de cada celda */
+}
+
+/* Filas alternas */
+.bit-table-dark tbody tr:nth-child(even) {
+    background-color: #2b2b2b;  /* Fondo alternado para las filas */
+}
+
+/* Fila al pasar el ratón */
+.bit-table-dark tbody tr:hover {
+    background-color: #555;  /* Resalta la fila al pasar el ratón */
+}
+

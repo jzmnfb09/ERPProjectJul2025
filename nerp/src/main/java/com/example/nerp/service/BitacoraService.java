@@ -37,7 +37,7 @@ private final JdbcTemplate jdbcTemplate;
 
     // ✅ Obtener todos
     public List<BitacoraMovimiento> obtenerTodos() {
-        String sql = "SELECT id, usuario, accion, detalle, fecha, tren FROM bitacora_movimientos ORDER BY fecha ASC";
+        String sql = "SELECT id, usuario, accion, detalle, fecha, tren FROM bitacora_movimientos ORDER BY fecha DESC";
         return jdbcTemplate.query(sql, (rs, rowNum) -> {
             BitacoraMovimiento m = new BitacoraMovimiento();
             m.setId(rs.getInt("id"));

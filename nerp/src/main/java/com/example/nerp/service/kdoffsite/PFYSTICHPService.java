@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,10 +22,10 @@ public class PFYSTICHPService {
     public List<PFYSTICHP> buscarPorCase(String casem) {
 
         String sql = "SELECT TCSUP, TCSUL, TCASN, TCLOC, TCSTS, TCCAS " +
-                    "FROM RLMPRDBASD.PFYSTICHP " +
-                    "WHERE RLMPRDBASD.PFYSTICHP.TCCAS = ?";
+                "FROM RLMPRDBASD.PFYSTICHP " +
+                "WHERE RLMPRDBASD.PFYSTICHP.TCCAS = ?";
 
-        return jdbc.query(sql, new Object[]{casem}, (rs, rowNum) -> {
+        return jdbc.query(sql, new Object[] { casem }, (rs, rowNum) -> {
             PFYSTICHP obj = new PFYSTICHP();
             obj.setTcsup(rs.getString("TCSUP"));
             obj.setTcsul(rs.getString("TCSUL"));
@@ -62,17 +63,26 @@ public class PFYSTICHPService {
     }
 
     public void darBaja(String casem) {
-        
+
         String sql = "UPDATE RLMPRDBASD.PFYSTICHP SET TCSTS = 'DC' WHERE RLMPRDBASD.PFYSTICHP.TCCAS  = ?";
         jdbc.update(sql, casem);
 
     }
 
     public void eliminarCase(String casem) {
-        
+
         String sql = "DELETE FROM RLMPRDBASD.PFYSTICHP p WHERE p.TCCAS = ?";
         jdbc.update(sql, casem);
 
+    }
+
+    public String obtenerEstado(String casem) {
+        String sql = "SELECT p.TCSTS FROM RLMPRDBASD.PFYSTICHP p WHERE p.TCCAS = ?";
+        try {
+            return jdbc.queryForObject(sql, String.class, casem);
+        } catch (EmptyResultDataAccessException e) {
+            return null; // o manejar "no encontrado"
+        }
     }
 
 }

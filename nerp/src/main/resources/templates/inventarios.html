@@ -44,7 +44,7 @@
             </div>
             <!-- Botones secundarios -->
             <div class="d-flex align-items-center gap-2">
-                <a th:href="@{/modulos}" class="btn btn-secondary">
+                <a th:href="@{/modulos}" class="btn btn-secondary" onclick="cerrarVentana(); return false;">
                     <i class="fa-solid fa-arrow-left"></i> Regresar
                 </a>
             </div>
@@ -53,22 +53,22 @@
 
     <div class="inventarios-container">
 
-        <!-- Sección del LPN -->
+        <!-- FORMULARIO DE BÚSQUEDA -->
         <div class="lpn-box">
             <form th:action="@{/inventarios}" method="post" class="d-flex align-items-center gap-2">
                 <label for="lpn" class="lpn-label">LPN:</label>
                 <input type="text" id="lpn" class="lpn-input" name="lpn" th:value="${lpn}">
                 <button type="submit" class="btn-red">
                     <i class="fa-solid fa-search"></i> Buscar
-                    <button type="button" class="btn-red" onclick="limpiarBusqueda()">
-                        <i class="fa-solid fa-broom"></i> Limpiar
-                    </button>
+                </button>
+                <button type="button" class="btn-red" onclick="limpiarBusqueda()">
+                    <i class="fa-solid fa-broom"></i> Limpiar
+                </button>
             </form>
         </div>
 
-        <div class="container">
+        <div class="inventarios-container">
 
-            <!-- Overlay de carga -->
             <div id="overlay-cargando" class="overlay-cargando d-none">
                 <div class="overlay-contenido">
                     <div class="spinner"></div>
@@ -76,29 +76,39 @@
                 </div>
             </div>
 
+            <!-- FORMULARIO PARA GUARDAR CAMBIOS -->
+            <form th:action="@{/inventarios/actualizarLPN}" method="post">
 
-            <div class="" id="tabla-gccinvdt00">
-                <div th:replace="~{fragments/inventarios/tabla-gccinvdt00 :: tablaGccinvdt00}"></div>
-            </div>
+                <!-- Campo oculto con el LPN -->
+                <input type="hidden" name="lpn" th:value="${lpn}" />
 
-            <div th:if="${lpn != null and lpn != '' and #lists.isEmpty(gccinvdt00)}">
-                <script>
-                    document.addEventListener("DOMContentLoaded", function () {
-                        var myModal = new bootstrap.Modal(document.getElementById('noResultsModal'));
-                        myModal.show();
-                    });
-                </script>
-            </div>
+                <div id="tabla-gccinvdt00">
+                    <div th:replace="~{fragments/inventarios/tabla-gccinvdt00 :: tablaGccinvdt00}"></div>
+                </div>
 
-        </div>
-        <div>
-            <button type="submit" class="btn-red">Guardar cambios</button>
+                <div th:if="${lpn != null and lpn != '' and #lists.isEmpty(gccinvdt00)}">
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var myModal = new bootstrap.Modal(document.getElementById('noResultsModal'));
+                            myModal.show();
+                        });
+                    </script>
+                </div>
+
+                <!-- Botón Guardar -->
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn-red">Guardar cambios</button>
+                </div>
+
+            </form>
+
         </div>
     </div>
 
+
     <!-----------------------------------
                     FOOTER
-        ------------------------------------->
+    ------------------------------------->
 
     <footer class="footer bg-danger text-white text-center py-3 mt-auto footer">
         <div class="container">
@@ -206,6 +216,20 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        function cerrarVentana() {
+            // Intenta cerrar la pestaña
+            window.close();
+
+            // Si no se cierra, redirige (por ejemplo, al menú)
+            setTimeout(() => {
+                if (!window.closed) {
+                    window.location.href = '/modulos';
+                }
+            }, 200);
+        }
     </script>
 
 </body>

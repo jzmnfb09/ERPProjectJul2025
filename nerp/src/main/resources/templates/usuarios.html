@@ -25,7 +25,7 @@
                 <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modalCrearUser">
                     <i class="fa-solid fa-user-plus"></i> Crear Usuario
                 </button>
-                <a th:href="@{/modulos}" class="btn btn-light">
+                <a th:href="@{/modulos}" class="btn btn-light" onclick="cerrarVentana(); return false;">
                     <i class="fa-solid fa-arrow-left"></i> Regresar
                 </a>
             </div>
@@ -77,8 +77,8 @@
                         <div class="acciones-wrapper">
                             <form th:action="@{/usuarios/eliminar}" method="post" class="form-eliminar">
                                 <input type="hidden" name="id" th:value="${usuario.id}" />
-                                <button type="button" class="btn-black btn-eliminar"
-                                    data-bs-toggle="modal" data-bs-target="#modalEliminar" th:data-id="${usuario.id}"
+                                <button type="button" class="btn-black btn-eliminar" data-bs-toggle="modal"
+                                    data-bs-target="#modalEliminar" th:data-id="${usuario.id}"
                                     th:data-username="${usuario.username}">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </button>
@@ -264,6 +264,20 @@
                 inputEliminarId.value = userId; // Lo ponemos en el input oculto
             });
         });
+    </script>
+
+    <script>
+        function cerrarVentana() {
+            // Intenta cerrar la pestaña
+            window.close();
+
+            // Si no se cierra, redirige (por ejemplo, al menú)
+            setTimeout(() => {
+                if (!window.closed) {
+                    window.location.href = '/modulos';
+                }
+            }, 200);
+        }
     </script>
 
 

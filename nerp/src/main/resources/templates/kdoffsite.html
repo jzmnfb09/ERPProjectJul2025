@@ -40,7 +40,8 @@
             </a>
 
             <form th:action="@{/kdoffsite}" method="post" id="caseForm"
-                class="d-flex flex-column flex-md-row gap-2 w-100">
+                class="d-flex flex-column flex-md-row gap-2 w-100"
+                onsubmit="document.getElementById('campoFiltro').value = document.getElementById('campoFiltro').value.trim();">
                 <!-- Input flotante -->
                 <div>
                     <input type="text" class="navbarInput" id="casem" name="casem" th:value="${casem}"
@@ -74,15 +75,14 @@
                 th:data-id="${casem}">
                 <i class="fa-solid fa-trash"></i> Eliminar
             </button>
-            <a th:href="@{/modulos}" class="btn btn-light">
-                <i class="fa-solid fa-door-open"></i> Salir
-            </a>
+            <a th:href="@{/modulos}" class="btn btn-light" onclick="cerrarVentana(); return false;">
+                <i class="fa-solid fa-arrow-left"></i> Regresar </a>
         </div>
     </nav>
 
     <!-----------------------------------
                         TABLAS
-        ------------------------------------->
+    ------------------------------------->
 
     <div class="layout-wrapper">
 
@@ -163,7 +163,7 @@
 
     <!-----------------------------------
                     FOOTER
-        ------------------------------------->
+    ------------------------------------->
 
     <footer class="footer bg-danger text-white text-center py-3 mt-auto footer">
         <div class="container">
@@ -174,7 +174,7 @@
 
     <!-----------------------------------
                     MODALS
-        ------------------------------------->
+    ------------------------------------->
 
     <!-- Modal para "No se encontraron resultados" -->
     <div class="modal fade" id="noResultsModal" tabindex="-1" aria-labelledby="noResultsModalLabel" aria-hidden="true">
@@ -313,13 +313,29 @@
     <script>
         function limpiarBusqueda() {
             // Limpiar input
-            document.getElementById("casem").value = "";
+            const inputCasem = document.getElementById("casem");
+            inputCasem.value = "";
 
             // Limpiar contenido de las tablas
             const tablas = document.querySelectorAll("tbody.table-dark");
             tablas.forEach(t => t.innerHTML = "");
+
+            // Habilitar botón de editar
+            const btnEditar = document.getElementById("editarBtnKD");
+            if (btnEditar) {
+                btnEditar.disabled = false;                 // Habilita el botón
+                btnEditar.classList.add("btn-light");       // Estilo normal
+                btnEditar.classList.remove("btn-secondary"); // Quita estilo deshabilitado
+            }
+
+            // Restaurar la función de doble clic para editar ASN
+            if (typeof activarDobleClickPFYSTIHP === "function") {
+                // Si ya estaba definida, podemos reactivar la original
+                activarDobleClickPFYSTIHP(); // O simplemente dejarla lista para nuevo CASE
+            }
         }
     </script>
+
 
     <!-- Botón para actualizar -->
     <script>
@@ -457,6 +473,8 @@
                 modal.show();
             });
         });
+
+
     </script>
 
     <!-- Editar estado — Tabla PFYSTIHP -->
@@ -599,6 +617,55 @@
     </script>
 
 
+    <!-- Script para consultar el estado -->
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+            const casem = document.getElementById("casem").value.trim();
+            const btnEditar = document.getElementById("editarBtnKD");
+            if (!casem || !btnEditar) return;
+
+            try {
+                const resp = await fetch(`/kdoffsite/estado-case?casem=${encodeURIComponent(casem)}`);
+                if (!resp.ok) throw new Error("Error al consultar el estado");
+                const estado = (await resp.text()).trim();
+
+                console.log("Estado del CASE:", estado);
+
+                if (estado === "DC") {
+                    // Deshabilitar botón de editar
+                    btnEditar.disabled = true; // Esto es más directo
+                    btnEditar.classList.add("btn-secondary"); // Cambia estilo
+                    btnEditar.classList.remove("btn-light");   // Opcional: quitar estilo normal
+
+                    // Desactiva doble clic para editar ASN
+                    window.activarDobleClickPFYSTIHP = function () {
+                        console.log("Edición desactivada porque el CASE está en DC");
+                    };
+                } else {
+                    // En cualquier otro caso, aseguramos que esté habilitado
+                    btnEditar.disabled = false;
+                    btnEditar.classList.add("btn-light");
+                    btnEditar.classList.remove("btn-secondary");
+                }
+            } catch (err) {
+                console.error("Error consultando estado:", err);
+            }
+        });
+    </script>
+
+    <script>
+        function cerrarVentana() {
+            // Intenta cerrar la pestaña
+            window.close();
+
+            // Si no se cierra, redirige (por ejemplo, al menú)
+            setTimeout(() => {
+                if (!window.closed) {
+                    window.location.href = '/modulos';
+                }
+            }, 200);
+        }
+    </script>
 
 </body>
 

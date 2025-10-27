@@ -64,21 +64,21 @@
 
                     <!-- Solo admin -->
                     <div th:if="${#strings.equalsIgnoreCase(rol, 'admin')}">
-                        <a th:href="@{/usuarios}" class="btn btn-danger">
+                        <a th:href="@{/usuarios}" class="btn btn-light">
                             <i class="fas fa-user-cog me-1"></i> Usuarios
                         </a>
 
                     </div>
 
                     <!-- Cambiar contraseña -->
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-light" data-bs-toggle="modal"
                         data-bs-target="#cambiarPasswordModal">
                         <i class="fas fa-key me-1"></i> Contraseña
                     </button>
 
                     <!-- Cerrar sesión -->
                     <form th:action="@{/logout}" method="post" class="m-0">
-                        <button type="submit" class="btn btn-danger">
+                        <button type="submit" class="btn btn-light">
                             <i class="fa-solid fa-door-open"></i> Cerrar Sesión
                         </button>
                     </form>

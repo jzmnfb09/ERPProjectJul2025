@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="icon" th:href="@{/img/minilogo.png}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bitácora KD Offsite</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css}">
+    <link rel="shortcut icon" th:href="@{/img/kdimg/icono.png}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+
+    <style>
+        .navbar-brand img {
+            max-height: 48px;
+            width: auto;
+        }
+
+        .card.module:hover {
+            transform: translateY(-4px);
+            transition: transform .15s ease;
+        }
+
+        body {
+            background-color: #292929;
+            font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        }
+    </style>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger sticky-top shadow-sm">
+        <!-- ZONA DE CONTROLES -->
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{https://www.promex-logistics.com.mx}">
+                <img th:src="@{/img/kdimg/logo.png}" alt="Logo">
+            </a>
+            <div class="d-flex align-items-center gap-2">
+                <p class="modal-title" style="font-size: 2rem;"><strong>Bitácora KD Offsite</strong></p>
+            </div>
+            <!-- Botones secundarios -->
+            <div class="d-flex align-items-center gap-2">
+                <a th:href="@{/modulos}" class="btn btn-secondary" onclick="cerrarVentana(); return false;">
+                    <i class="fa-solid fa-arrow-left"></i> Regresar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bit-box">
+        <form th:action="@{/bitacora}" method="get" class="d-flex align-items-center gap-2"
+            style="align-items: center;">
+
+            <label class="bit-label" for="fecha">Filtrar por fecha:</label>
+            <input class="bit-input" type="date" id="fecha" name="fecha" th:value="${filtroFecha}">
+
+            <label class="bit-label" for="usuario">Filtrar por usuario:</label>
+            <input class="bit-input" type="text" id="usuario" name="usuario" th:value="${filtroUsuario}"
+                placeholder="Nombre de usuario" oninput="this.value = this.value.toUpperCase().trim()"
+                autocomplete="off">
+            <label class="bit-label" for="tren">Filtrar por Case Module:</label>
+
+            <input class="bit-input" type="text" id="tren" name="tren" th:value="${filtroTren}"
+                placeholder="Número de tren" oninput="this.value = this.value.toUpperCase().trim()" autocomplete="off">
+
+            <button class="btn-red" type="submit">Filtrar</button>
+            <!-- Botón para limpiar filtros -->
+            <button class="btn-red" type="button" onclick="limpiarBitacora()">Limpiar</button>
+        </form>
+    </div>
+
+    <div class="bit-container">
+        <table class="bit-table bit-table-hover bit-table-bordered">
+            <thead class="bit-table-dark">
+                <tr class="bit-table-title">
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Case Module</th>
+                    <th>Acción</th>
+                    <th>Detalle</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody class="bit-table-dark">
+                <tr th:each="m : ${movimientos}">
+                    <td th:text="${m.id}"></td>
+                    <td th:text="${m.usuario}"></td>
+                    <td th:text="${m.accion}"></td>
+                    <td th:text="${m.detalle}"></td>
+                    <td th:text="${#dates.format(m.fecha, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${m.tren}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            // Si hay parámetro en la URL, y es un reload, quitamos el parámetro visualmente
+            if (window.location.href.includes("fecha=", "usuario=", "tren=")) {
+                // Esto borra los parámetros pero no recarga la página
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+        });
+    </script>
+
+
+    <script>
+        function limpiarBitacora() {
+            // Limpia los valores de los inputs
+            document.querySelectorAll('.bit-input').forEach(input => {
+                input.value = '';
+            });
+
+            // Redirige al endpoint sin filtros
+            window.location.href = '/bitacora';
+        }
+    </script>
+
+    <script>
+        function cerrarVentana() {
+            // Intenta cerrar la pestaña
+            window.close();
+
+            // Si no se cierra, redirige (por ejemplo, al menú)
+            setTimeout(() => {
+                if (!window.closed) {
+                    window.location.href = '/modulos';
+                }
+            }, 200);
+        }
+    </script>
+
+</body>
+
+</html>

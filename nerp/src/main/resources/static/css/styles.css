@@ -50,10 +50,12 @@ ul {
 
 .btn:hover,
 .btn:focus {
-    background-color: #fff;
+    background-color: transparent;
     transform: scale(1.05);
     cursor: pointer;
-    color: #000;
+    color: #fff;
+    border: 1px solid #fff;
+
 }
 
 .btn-red {
@@ -87,7 +89,7 @@ ul {
 
 .btn-black:hover,
 .btn-black:focus {
-    background-color: #1a0000;
+    background-color: #000;
     transform: scale(1.05);
     cursor: pointer;
 }
@@ -960,8 +962,10 @@ button:hover {
 /* ====== Estilos bitácora ====== */
 .bit-box {
     display: flex;
-    justify-content: center;  /* Centra el formulario horizontalmente */
-    align-items: center;      /* Centra verticalmente si hay espacio */
+    justify-content: center;
+    /* Centra el formulario horizontalmente */
+    align-items: center;
+    /* Centra verticalmente si hay espacio */
     background-color: #242424;
     padding: 1rem 2rem;
     border-radius: 6px;
@@ -973,9 +977,12 @@ button:hover {
 .bit-box form {
     display: flex;
     align-items: center;
-    justify-content: center;  /* Centra los elementos internamente */
-    flex-wrap: wrap;          /* Permite que los elementos bajen si no caben */
-    gap: 0.8rem;              /* Espaciado entre inputs/labels */
+    justify-content: center;
+    /* Centra los elementos internamente */
+    flex-wrap: wrap;
+    /* Permite que los elementos bajen si no caben */
+    gap: 0.8rem;
+    /* Espaciado entre inputs/labels */
 }
 
 /* ===== Labels ===== */
@@ -1009,29 +1016,38 @@ button:hover {
 
 /* Contenedor de la tabla */
 .bit-container {
-    padding: 2rem;  /* Agrega espacio alrededor de la tabla */
-    margin-top: 1.5rem; /* Espaciado arriba */
-    max-width: 90%;  /* Limita el ancho máximo */
-    margin: 0 auto;  /* Centra la tabla */
+    padding: 2rem;
+    /* Agrega espacio alrededor de la tabla */
+    margin-top: 1.5rem;
+    /* Espaciado arriba */
+    max-width: 90%;
+    /* Limita el ancho máximo */
+    margin: 0 auto;
+    /* Centra la tabla */
 }
 
 /* Estilo para la tabla */
 .bit-table {
-    width: 100%;   /* Asegura que la tabla ocupe todo el ancho del contenedor */
-    border-collapse: collapse; /* Hace que las celdas no tengan separación */
-    margin-top: 1rem;  /* Espaciado arriba de la tabla */
+    width: 100%;
+    /* Asegura que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse;
+    /* Hace que las celdas no tengan separación */
+    margin-top: 1rem;
+    /* Espaciado arriba de la tabla */
 
     border-spacing: 0;
     border-radius: 0.75rem;
     background-color: #242424;
     color: white;
-    font-family: inherit; /* usa la fuente general de la página */
+    font-family: inherit;
+    /* usa la fuente general de la página */
     font-size: 0.85rem;
-    width: 100%; /* o auto si quieres que la tabla se ajuste al contenido */
+    width: 100%;
+    /* o auto si quieres que la tabla se ajuste al contenido */
 }
 
 .bit-table th,
-.bit-table td{
+.bit-table td {
     border: 1px solid #444;
     background-color: #242424;
     color: #fff;
@@ -1040,27 +1056,33 @@ button:hover {
 
 /* Encabezado de la tabla */
 .bit-table-dark th {
-    padding: 12px 15px;  /* Aumenta el espaciado dentro de las celdas */
+    padding: 12px 15px;
+    /* Aumenta el espaciado dentro de las celdas */
     background-color: #181818 !important;
     font-weight: bold;
     font-size: 0.8rem;
-    text-align: center; /* Centra el texto */
+    text-align: center;
+    /* Centra el texto */
 }
 
 /* Celdas de la tabla */
 .bit-table-dark td {
-    padding: 10px 15px;  /* Aumenta el espaciado en las celdas */
-    text-align: center;  /* Centra el contenido de las celdas */
-    border: 1px solid #444;  /* Agrega borde alrededor de cada celda */
+    padding: 10px 15px;
+    /* Aumenta el espaciado en las celdas */
+    text-align: center;
+    /* Centra el contenido de las celdas */
+    border: 1px solid #444;
+    /* Agrega borde alrededor de cada celda */
 }
 
 /* Filas alternas */
 .bit-table-dark tbody tr:nth-child(even) {
-    background-color: #2b2b2b;  /* Fondo alternado para las filas */
+    background-color: #2b2b2b;
+    /* Fondo alternado para las filas */
 }
 
 /* Fila al pasar el ratón */
 .bit-table-dark tbody tr:hover {
-    background-color: #555;  /* Resalta la fila al pasar el ratón */
+    background-color: #555;
+    /* Resalta la fila al pasar el ratón */
 }
-

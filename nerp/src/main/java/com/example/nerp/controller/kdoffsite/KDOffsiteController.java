@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.nerp.model.kdoffsite.BitacoraKD;
 import com.example.nerp.model.kdoffsite.PFYSTICHP;
 import com.example.nerp.service.kdoffsite.BitacoraKDService;
 import com.example.nerp.service.kdoffsite.PFCCASNKService;
@@ -134,7 +135,7 @@ public class KDOffsiteController {
     @PostMapping("/baja")
     @ResponseBody
     public String ejecutarBaja(@RequestParam("casem") String casem,
-                                HttpSession session) {
+            HttpSession session) {
         try {
             pfystichpService.darBaja(casem);
 
@@ -151,7 +152,7 @@ public class KDOffsiteController {
 
     @PostMapping("/eliminar")
     public String eliminarCase(@RequestParam("casem") String casem,
-                                HttpSession session) {
+            HttpSession session) {
         pfystichpService.eliminarCase(casem);
 
         String usuario = (String) session.getAttribute("usuario");

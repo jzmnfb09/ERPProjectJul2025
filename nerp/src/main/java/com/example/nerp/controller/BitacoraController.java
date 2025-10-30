@@ -19,12 +19,11 @@ import com.example.nerp.model.BitacoraMovimiento;
 import com.example.nerp.model.Usuario;
 import com.example.nerp.service.BitacoraService;
 
-
-
 import jakarta.servlet.http.HttpServletRequest;
+
 @RestController // ← ¡Esto es esencial!
 public class BitacoraController {
-  private final BitacoraService bitacoraService;
+    private final BitacoraService bitacoraService;
 
     public BitacoraController(BitacoraService bitacoraService) {
         this.bitacoraService = bitacoraService;
@@ -33,18 +32,18 @@ public class BitacoraController {
     @PostMapping("/registro-movimiento")
     public ResponseEntity<Void> registrarMovimiento(@RequestBody BitacoraDTO dto, HttpServletRequest request) {
         Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
-    String nombreUsuario = (usuarioSesion != null) ? usuarioSesion.getUsername() : "DESCONOCIDO";
+        String nombreUsuario = (usuarioSesion != null) ? usuarioSesion.getUsername() : "DESCONOCIDO";
 
-    // Evitar registrar el inicio de sesión
+        // Evitar registrar el inicio de sesión
         String accion = dto.getAccion() != null ? dto.getAccion().toLowerCase().replace("í", "i").trim() : "";
-if (!accion.contains("inicio de sesion")) {
-    bitacoraService.registrar(nombreUsuario, dto.getAccion(), dto.getDetalle(), dto.getTren());
+        if (!accion.contains("inicio de sesion")) {
+            bitacoraService.registrar(nombreUsuario, dto.getAccion(), dto.getDetalle(), dto.getTren());
 
-}
+        }
 
-    
-    return ResponseEntity.ok().build(); 
+        return ResponseEntity.ok().build();
     }
+
     // 🔹 Consulta de movimientos (Thymeleaf)
     @Controller
     @RequestMapping("/bitacora")
@@ -56,38 +55,39 @@ if (!accion.contains("inicio de sesion")) {
             this.bitacoraService = bitacoraService;
         }
 
-      @GetMapping
-public String verBitacora(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
-                          @RequestParam(required = false) String usuario,
-                          @RequestParam(required = false) String tren,
-                          Model model) {
-    List<BitacoraMovimiento> movimientos;
+        @GetMapping
+        public String verBitacora(
+                @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
+                @RequestParam(required = false) String usuario,
+                @RequestParam(required = false) String tren,
+                Model model) {
+            List<BitacoraMovimiento> movimientos;
 
-     // lógica de filtros combinados
-        if (fecha != null && usuario != null && !usuario.isBlank() && tren != null && !tren.isBlank()) {
-            movimientos = bitacoraService.buscarPorFechaUsuarioYTren(fecha, usuario, tren);
-        } else if (fecha != null && usuario != null && !usuario.isBlank()) {
-            movimientos = bitacoraService.buscarPorFechaYUsuario(fecha, usuario);
-        } else if (fecha != null && tren != null && !tren.isBlank()) {
-            movimientos = bitacoraService.buscarPorFechaYTren(fecha, tren);
-        } else if (usuario != null && !usuario.isBlank() && tren != null && !tren.isBlank()) {
-            movimientos = bitacoraService.buscarPorUsuarioYTren(usuario, tren);
-        } else if (fecha != null) {
-            movimientos = bitacoraService.buscarPorFecha(fecha);
-        } else if (usuario != null && !usuario.isBlank()) {
-            movimientos = bitacoraService.buscarPorUsuario(usuario);
-        } else if (tren != null && !tren.isBlank()) {
-            movimientos = bitacoraService.buscarPorTren(tren);
-        } else {
-            movimientos = bitacoraService.obtenerTodos();
+            // lógica de filtros combinados
+            if (fecha != null && usuario != null && !usuario.isBlank() && tren != null && !tren.isBlank()) {
+                movimientos = bitacoraService.buscarPorFechaUsuarioYTren(fecha, usuario, tren);
+            } else if (fecha != null && usuario != null && !usuario.isBlank()) {
+                movimientos = bitacoraService.buscarPorFechaYUsuario(fecha, usuario);
+            } else if (fecha != null && tren != null && !tren.isBlank()) {
+                movimientos = bitacoraService.buscarPorFechaYTren(fecha, tren);
+            } else if (usuario != null && !usuario.isBlank() && tren != null && !tren.isBlank()) {
+                movimientos = bitacoraService.buscarPorUsuarioYTren(usuario, tren);
+            } else if (fecha != null) {
+                movimientos = bitacoraService.buscarPorFecha(fecha);
+            } else if (usuario != null && !usuario.isBlank()) {
+                movimientos = bitacoraService.buscarPorUsuario(usuario);
+            } else if (tren != null && !tren.isBlank()) {
+                movimientos = bitacoraService.buscarPorTren(tren);
+            } else {
+                movimientos = bitacoraService.obtenerTodos();
+            }
+
+            model.addAttribute("filtroFecha", fecha);
+            model.addAttribute("filtroUsuario", usuario);
+            model.addAttribute("movimientos", movimientos);
+            model.addAttribute("filtroTren", tren);
+            return "bitacora";
         }
 
-    model.addAttribute("filtroFecha", fecha);
-    model.addAttribute("filtroUsuario", usuario);
-    model.addAttribute("movimientos", movimientos);
-    model.addAttribute("filtroTren", tren);
-    return "bitacora";
-}
-  
     }
 }

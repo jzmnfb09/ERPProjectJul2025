@@ -109,11 +109,6 @@ public class KDOffsiteController {
         // Actualizar Estado Case
         pfystichpService.editarKD(casem, newTcloc, newTcsts);
 
-        // Registrar en bitácora
-        String usuario = (String) session.getAttribute("usuario"); // Ajusta según tu sesión
-        String detalle = "Se editó la ubicación a: " + newTcloc + " y estado a: " + newTcsts;
-        bitacoraKDService.registrar(casem, usuario, "EDITAR", detalle);
-
         return "redirect:/kdoffsite?casem=" + casem;
     }
 
@@ -124,11 +119,6 @@ public class KDOffsiteController {
             HttpSession session) {
         pfystihpService.editarEstado(thasn, newThsts);
 
-        // Registrar en bitácora
-        String usuario = (String) session.getAttribute("usuario");
-        String detalle = "Se cambió el estado de ASN " + thasn + " a: " + newThsts;
-        bitacoraKDService.registrar(casem, usuario, "CAMBIO_ESTADO", detalle);
-
         return "redirect:/kdoffsite?casem=" + casem;
     }
 
@@ -138,9 +128,6 @@ public class KDOffsiteController {
             HttpSession session) {
         try {
             pfystichpService.darBaja(casem);
-
-            String usuario = (String) session.getAttribute("usuario");
-            bitacoraKDService.registrar(casem, usuario, "BAJA", "Case Module dado de baja");
 
             return "Case Module: " + casem + " dado de baja";
         } catch (Exception e) {
@@ -154,9 +141,6 @@ public class KDOffsiteController {
     public String eliminarCase(@RequestParam("casem") String casem,
             HttpSession session) {
         pfystichpService.eliminarCase(casem);
-
-        String usuario = (String) session.getAttribute("usuario");
-        bitacoraKDService.registrar(casem, usuario, "ELIMINAR", "Case Module eliminado");
 
         return "redirect:/kdoffsite";
     }
